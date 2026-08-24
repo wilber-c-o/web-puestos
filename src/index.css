@@ -11,6 +11,7 @@ body { margin: 0; min-width: 320px; }
 
 button, input { font: inherit; }
 
+
 .app-shell { min-height: 100vh; background: #f7f8fa; }
 .app-header { display: flex; min-height: 5.5rem; align-items: center; justify-content: space-between; gap: 2rem; padding: 1rem clamp(1.5rem, 5vw, 5rem); color: #fff; background: #173e53; box-shadow: 0 2px 8px rgb(16 46 67 / 10%); }
 .app-header__brand { display: flex; align-items: center; gap: .75rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; letter-spacing: -.02em; }
@@ -32,6 +33,7 @@ button, input { font: inherit; }
 .user-summary div { padding: 1.2rem 1.35rem; border: 1px solid #e0e6e9; border-radius: .35rem; background: #fff; }
 .user-summary dt { color: #788892; font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 .user-summary dd { margin: .45rem 0 0; color: #233b4b; font-size: 1rem; font-weight: 600; }
+
 
 .login-page {
   min-height: 100vh;
@@ -94,6 +96,7 @@ button, input { font: inherit; }
 .login-form__submit:focus-visible { outline: 3px solid rgb(166 130 64 / 45%); outline-offset: 3px; }
 
 @media (max-width: 780px) {
+
   .app-header { align-items: flex-start; padding: 1.25rem 1.5rem; }
   .app-header__brand { font-size: 1rem; }
   .app-header__user { gap: .75rem; }
@@ -101,6 +104,7 @@ button, input { font: inherit; }
   .app-header__logout { padding: .55rem .65rem; white-space: nowrap; }
   .home-content { width: min(100% - 2.5rem, 70rem); }
   .user-summary { grid-template-columns: 1fr; }
+
   .login-page { grid-template-columns: 1fr; }
   .login-introduction { min-height: 19rem; padding: 5.5rem 2rem 3rem; }
   .brand-mark { top: 1.8rem; left: 2rem; }
