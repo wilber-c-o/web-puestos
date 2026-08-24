@@ -27,6 +27,13 @@ button, input { font: inherit; }
 .app-header__logout:hover { color: #173e53; background: #fff; }
 .app-header__logout:focus-visible { outline: 3px solid #d7b56d; outline-offset: 3px; }
 
+.navigation-bar { border-bottom: 1px solid #dfe6e9; background: #fff; }
+.navigation-bar__content { display: flex; width: min(100% - 3rem, 70rem); margin: 0 auto; overflow-x: auto; }
+.navigation-bar__link { position: relative; flex: 0 0 auto; padding: 1rem 1.25rem; color: #526671; font-size: .84rem; font-weight: 600; text-decoration: none; transition: color .2s, background .2s; }
+.navigation-bar__link::after { position: absolute; right: 1.25rem; bottom: 0; left: 1.25rem; height: 3px; content: ""; background: transparent; transition: background .2s; }
+.navigation-bar__link:hover { color: #173e53; background: #f7f9fa; }
+.navigation-bar__link:hover::after, .navigation-bar__link:focus-visible::after { background: #d7b56d; }
+.navigation-bar__link:focus-visible { outline: 3px solid rgb(166 130 64 / 45%); outline-offset: -3px; }
 .home-content { width: min(100% - 3rem, 70rem); margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 0; }
 .home-content h1 { margin: 0; color: #173044; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.25rem, 5vw, 3.6rem); font-weight: 400; letter-spacing: -.04em; }
 .home-content__description { max-width: 36rem; margin: 1rem 0 2.5rem; color: #687783; line-height: 1.65; }
@@ -103,6 +110,12 @@ button, input { font: inherit; }
   .app-header__user { gap: .75rem; }
   .app-header__user p, .app-header__user strong { text-align: left; }
   .app-header__logout { padding: .55rem .65rem; white-space: nowrap; }
+
+  .navigation-bar__content { width: 100%; }
+  .navigation-bar__link { padding-right: 1rem; padding-left: 1rem; }
+  .navigation-bar__link::after { right: 1rem; left: 1rem; }
+  .home-content { width: min(100% - 2.5rem, 70rem); }
+  .user-summary { grid-template-columns: 1fr; }
 
   .login-page { grid-template-columns: 1fr; }
   .login-introduction { min-height: 19rem; padding: 5.5rem 2rem 3rem; }

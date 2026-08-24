@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/layout/Header";
 
+import NavigationBar from "../components/layout/NavigationBar";
+
 import { authRepository } from "../repositories/authRepository";
 
 
