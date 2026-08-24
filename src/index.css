@@ -11,6 +11,30 @@ body { margin: 0; min-width: 320px; }
 
 button, input { font: inherit; }
 
+
+.app-shell { min-height: 100vh; background: #f7f8fa; }
+.app-header { display: flex; min-height: 5.5rem; align-items: center; justify-content: space-between; gap: 2rem; padding: 1rem clamp(1.5rem, 5vw, 5rem); color: #fff; background: #173e53; box-shadow: 0 2px 8px rgb(16 46 67 / 10%); }
+.app-header__brand { display: flex; align-items: center; gap: .75rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; letter-spacing: -.02em; }
+.app-header__mark { display: flex; align-items: end; gap: .18rem; height: 1.45rem; }
+.app-header__mark span { display: block; width: .25rem; border-radius: 2px; background: #d7b56d; }
+.app-header__mark span:nth-child(1) { height: .6rem; }
+.app-header__mark span:nth-child(2) { height: 1rem; }
+.app-header__mark span:nth-child(3) { height: 1.45rem; }
+.app-header__user { display: flex; align-items: center; gap: 1.5rem; }
+.app-header__user p { margin: 0 0 .2rem; color: #bcd0db; font-size: .72rem; letter-spacing: .08em; text-align: right; text-transform: uppercase; }
+.app-header__user strong { display: block; font-size: .92rem; font-weight: 600; }
+.app-header__logout { padding: .6rem .8rem; cursor: pointer; color: #fff; border: 1px solid rgb(255 255 255 / 35%); border-radius: .25rem; background: transparent; font-size: .82rem; transition: color .2s, background .2s; }
+.app-header__logout:hover { color: #173e53; background: #fff; }
+.app-header__logout:focus-visible { outline: 3px solid #d7b56d; outline-offset: 3px; }
+.home-content { width: min(100% - 3rem, 70rem); margin: 0 auto; padding: clamp(3rem, 8vw, 6rem) 0; }
+.home-content h1 { margin: 0; color: #173044; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.25rem, 5vw, 3.6rem); font-weight: 400; letter-spacing: -.04em; }
+.home-content__description { max-width: 36rem; margin: 1rem 0 2.5rem; color: #687783; line-height: 1.65; }
+.user-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 15rem)); gap: 1rem; margin: 0; }
+.user-summary div { padding: 1.2rem 1.35rem; border: 1px solid #e0e6e9; border-radius: .35rem; background: #fff; }
+.user-summary dt { color: #788892; font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.user-summary dd { margin: .45rem 0 0; color: #233b4b; font-size: 1rem; font-weight: 600; }
+
+
 .login-page {
   min-height: 100vh;
   display: grid;
@@ -72,6 +96,15 @@ button, input { font: inherit; }
 .login-form__submit:focus-visible { outline: 3px solid rgb(166 130 64 / 45%); outline-offset: 3px; }
 
 @media (max-width: 780px) {
+
+  .app-header { align-items: flex-start; padding: 1.25rem 1.5rem; }
+  .app-header__brand { font-size: 1rem; }
+  .app-header__user { gap: .75rem; }
+  .app-header__user p, .app-header__user strong { text-align: left; }
+  .app-header__logout { padding: .55rem .65rem; white-space: nowrap; }
+  .home-content { width: min(100% - 2.5rem, 70rem); }
+  .user-summary { grid-template-columns: 1fr; }
+
   .login-page { grid-template-columns: 1fr; }
   .login-introduction { min-height: 19rem; padding: 5.5rem 2rem 3rem; }
   .brand-mark { top: 1.8rem; left: 2rem; }
