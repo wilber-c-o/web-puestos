@@ -1,75 +1,72 @@
-# React + TypeScript + Vite
+# Sistema de gestión de puestos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para iniciar sesión y consultar la información básica de puestos.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Inicio y cierre de sesión mediante carnet de identidad y contraseña.
+- Encabezado personalizado con el nombre de la persona autenticada.
+- Barra de navegación con las secciones de estudiantes, clases, asientos ocupados y asientos libres.
+- Diseño adaptable para computadoras y dispositivos móviles.
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- React Router
 
-## Expanding the ESLint configuration
+## Requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 20 o superior.
+- npm 10 o superior.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalación y ejecución
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Instalar dependencias
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# Iniciar el servidor de desarrollo
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Después, abra la dirección que Vite muestre en la terminal, normalmente `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Credenciales de prueba
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Usuario | Carnet | Contraseña |
+| --- | --- | --- |
+| Administrador | `1234567` | `admin123` |
+| Usuario de prueba | `7654321` | `usuario123` |
 
+> Estas credenciales son únicamente para desarrollo. No deben utilizarse en un entorno de producción.
+
+## Comandos disponibles
+
+| Comando | Descripción |
+| --- | --- |
+| `npm run dev` | Inicia el entorno de desarrollo. |
+| `npm run build` | Genera la compilación de producción en `dist/`. |
+| `npm run preview` | Sirve localmente la compilación de producción. |
+| `npm run lint` | Ejecuta las comprobaciones de ESLint. |
+
+## Estructura principal
+
+```text
+src/
+├── components/       # Componentes reutilizables, como encabezado y navegación
+├── data/             # Datos iniciales de usuarios para desarrollo
+├── pages/            # Vistas de login e inicio
+├── repositories/     # Lógica de autenticación
+├── routes/           # Configuración de rutas
+├── services/         # Acceso al almacenamiento local
+└── types/            # Tipos compartidos de TypeScript
 ```
+
+## Rutas
+
+| Ruta | Descripción |
+| --- | --- |
+| `/login` | Pantalla de inicio de sesión. |
+| `/` | Página principal para una sesión autenticada. |

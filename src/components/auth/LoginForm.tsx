@@ -34,11 +34,15 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Iniciar sesión</h1>
+    <form className="login-form" onSubmit={handleSubmit}>
+      <div className="login-form__heading">
+        <p className="eyebrow">Acceso seguro</p>
+        <h2>Bienvenido de nuevo</h2>
+        <p>Ingrese sus credenciales para continuar.</p>
+      </div>
 
 
-      <div>
+      <div className="form-field">
         <label htmlFor="carnet">Carnet de identidad</label>
 
 
@@ -55,7 +59,7 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
       </div>
 
 
-      <div>
+      <div className="form-field">
         <label htmlFor="password">Contraseña</label>
 
 
@@ -73,13 +77,16 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
 
 
       {error && (
-        <p role="alert" aria-live="polite">
+        <p className="form-error" role="alert" aria-live="polite">
           {error}
         </p>
       )}
 
 
-      <button type="submit">Ingresar</button>
+      <button className="login-form__submit" type="submit">
+        Ingresar al sistema
+        <span aria-hidden="true">→</span>
+      </button>
     </form>
   );
 }
