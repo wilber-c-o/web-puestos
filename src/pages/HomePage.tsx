@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 
 import Header from "../components/layout/Header";
+
 import { authRepository } from "../repositories/authRepository";
 
 
@@ -21,6 +22,7 @@ function HomePage() {
       {user ? (
         <>
           <Header user={user} onLogout={handleLogout} />
+
           <main className="home-content">
             <p className="eyebrow">Resumen</p>
             <h1>Página principal</h1>
