@@ -37,11 +37,28 @@ function LoginPage() {
 
 
   return (
-    <main>
-      <LoginForm
-        error={error}
-        onSubmit={handleLogin}
-      />
+    <main className="login-page">
+      <section className="login-introduction" aria-label="Bienvenida">
+        <div className="brand-mark" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+
+        <div className="login-introduction__content">
+          <p className="eyebrow">Plataforma institucional</p>
+          <h1>Gestión clara.<br />Decisiones seguras.</h1>
+          <p className="login-introduction__description">
+            Acceda al sistema de puestos para consultar y administrar la información de forma ágil y confiable.
+          </p>
+        </div>
+
+        <p className="login-introduction__footer">Sistema de gestión de puestos</p>
+      </section>
+
+      <section className="login-panel" aria-label="Acceso al sistema">
+        <LoginForm error={error} onSubmit={handleLogin} />
+      </section>
     </main>
   );
 }

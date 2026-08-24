@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 
+import Header from "../components/layout/Header";
 import { authRepository } from "../repositories/authRepository";
 
 
@@ -16,25 +17,34 @@ function HomePage() {
 
 
   return (
-    <main>
-      <h1>Página principal</h1>
-
-
+    <div className="app-shell">
       {user ? (
         <>
-          <p>Bienvenido, {user.name}</p>
-          <p>Carnet: {user.carnet}</p>
-          <p>Rol: {user.role}</p>
-
-
-          <button type="button" onClick={handleLogout}>
-            Cerrar sesión
-          </button>
+          <Header user={user} onLogout={handleLogout} />
+          <main className="home-content">
+            <p className="eyebrow">Resumen</p>
+            <h1>Página principal</h1>
+            <p className="home-content__description">
+              Seleccione una opción para comenzar a gestionar la información disponible.
+            </p>
+            <dl className="user-summary">
+              <div>
+                <dt>Carnet</dt>
+                <dd>{user.carnet}</dd>
+              </div>
+              <div>
+                <dt>Rol asignado</dt>
+                <dd>{user.role}</dd>
+              </div>
+            </dl>
+          </main>
         </>
       ) : (
-        <p>No existe una sesión activa.</p>
+        <main className="home-content">
+          <p>No existe una sesión activa.</p>
+        </main>
       )}
-    </main>
+    </div>
   );
 }
 
