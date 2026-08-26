@@ -91,15 +91,7 @@ function HomePage() {
                     <p>{card.label}</p>
                     <strong>{card.value}</strong>
                     <small>{card.detail}</small>
-                    {card.icon === "people" && (
-                      <button
-                        className="summary-card__action"
-                        type="button"
-                        onClick={() => navigate("/estudiantes")}
-                      >
-                        Ver estudiantes <span aria-hidden="true">→</span>
-                      </button>
-                    )}
+
                   </article>
                 ))}
               </div>
