@@ -6,6 +6,7 @@ import {
 
 
 import HomePage from "../pages/HomePage";
+import StudentsPage from "../pages/StudentsPage";
 import LoginPage from "../pages/auth/LoginPage";
 
 
@@ -14,6 +15,7 @@ function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/estudiantes" element={<StudentsPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
@@ -22,4 +24,3 @@ function AppRoutes() {
 
 
 export default AppRoutes;
-

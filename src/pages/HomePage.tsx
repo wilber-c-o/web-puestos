@@ -91,6 +91,7 @@ function HomePage() {
                     <p>{card.label}</p>
                     <strong>{card.value}</strong>
                     <small>{card.detail}</small>
+
                   </article>
                 ))}
               </div>
