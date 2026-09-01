@@ -2,7 +2,7 @@
   {
     "id": "user-1",
     "name": "Administrador",
-    "carnet": "13938140",
+    "carnet": "123",
     "password": "123",
     "role": "ADMIN"
   },
