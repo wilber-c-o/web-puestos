@@ -41,20 +41,23 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
       </div>
 
       <div className="form-field">
-        <label htmlFor="carnet">
-          Carnet de identidad
-        </label>
+        <div className="form-field__label-row">
+          <label htmlFor="carnet">Carnet de identidad</label>
+          <span>Acceso institucional</span>
+        </div>
 
-        <input
-          id="carnet"
-          name="carnet"
-          type="text"
-          value={carnet}
-          onChange={(event) => setCarnet(event.target.value)}
-          placeholder="Ingresa tu carnet"
-          autoComplete="username"
-          required
-        />
+        <div className="form-field__input-wrap">
+          <input
+            id="carnet"
+            name="carnet"
+            type="text"
+            value={carnet}
+            onChange={(event) => setCarnet(event.target.value)}
+            placeholder="Ingresa tu carnet"
+            autoComplete="username"
+            required
+          />
+        </div>
       </div>
 
       <div className="form-field">
@@ -62,16 +65,18 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
           Contraseña
         </label>
 
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="Ingresa tu contraseña"
-          autoComplete="current-password"
-          required
-        />
+        <div className="form-field__input-wrap">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Ingresa tu contraseña"
+            autoComplete="current-password"
+            required
+          />
+        </div>
       </div>
 
       {error && (
@@ -84,9 +89,11 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
         className="login-form__submit"
         type="submit"
       >
-        Iniciar sesión
+        <span className="login-form__submit-text">Iniciar sesión</span>
         <span aria-hidden="true">→</span>
       </button>
+
+      <p className="login-form__help">Usa las credenciales asignadas por el colegio.</p>
 
     </form>
   );
