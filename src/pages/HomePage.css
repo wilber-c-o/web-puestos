@@ -1,352 +1,556 @@
-/* ================================
-   CONTENIDO PRINCIPAL
-================================ */
+/* =========================================
+   HOME - COLEGIO DON BOSCO
+   Colores: amarillo + blanco + azul claro
+========================================= */
 
-.dashboard-content {
-  width: 100%;
+.dashboard {
   min-height: 100vh;
-
-  padding: 50px 55px;
-
-  background:
-    radial-gradient(
-      circle at top right,
-      #142b3d 0%,
-      #0c1b2a 45%,
-      #081521 100%
-    );
-
-  color: #ffffff;
+  background: #f7faff;
 }
 
-/* ================================
-   HERO
-================================ */
+.dashboard-body {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+
+  padding: 40px 50px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f8fbfe 55%,
+      #eef8ff 100%
+    );
+
+  color: #142d55;
+}
+
+
+/* =========================================
+   BARRA LATERAL
+========================================= */
+
+.sidebar {
+  width: 275px;
+  min-width: 275px;
+
+  min-height: calc(100vh - 80px);
+
+  padding: 28px 18px;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e3edf5;
+
+  color: #142d55;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   MARCA DE LA BARRA
+========================================= */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 5px 10px 25px;
+
+  border-bottom: 1px solid #edf2f6;
+}
+
+.sidebar-logo {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background: #f2c300;
+
+  color: #142d55;
+
+  font-size: 19px;
+  font-weight: 900;
+
+  box-shadow:
+    0 6px 15px rgba(242, 195, 0, 0.2);
+}
+
+.sidebar-brand strong {
+  display: block;
+
+  color: #142d55;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.5px;
+}
+
+.sidebar-brand span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #7591ac;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   TÍTULO BARRA
+========================================= */
+
+.sidebar-title {
+  margin: 28px 12px 12px;
+
+  color: #9aabbc;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================
+   NAVEGACIÓN
+========================================= */
+
+.sidebar-navigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.sidebar-link {
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 0 15px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: #4f6d8d;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition: 0.2s;
+
+  box-sizing: border-box;
+}
+
+.sidebar-link:hover {
+  background: #f0f8ff;
+
+  color: #17385f;
+}
+
+.sidebar-link-active {
+  background: #fff1b8;
+
+  color: #142d55;
+
+  font-weight: 800;
+
+  box-shadow:
+    inset 4px 0 0 #f2c300;
+}
+
+.sidebar-icon {
+  width: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #5c7ea1;
+
+  font-size: 21px;
+
+  font-weight: 500;
+}
+
+.sidebar-link-active .sidebar-icon {
+  color: #dba900;
+}
+
+
+/* =========================================
+   PIE DE BARRA
+========================================= */
+
+.sidebar-footer {
+  margin-top: auto;
+
+  padding: 25px 12px 5px;
+}
+
+.footer-line {
+  width: 45px;
+  height: 4px;
+
+  margin-bottom: 15px;
+
+  border-radius: 20px;
+
+  background: #f2c300;
+}
+
+.sidebar-footer p {
+  margin: 0;
+
+  color: #7893ad;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  line-height: 1.8;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================
+   HERO / BIENVENIDA
+========================================= */
 
 .dashboard-hero {
+  position: relative;
+
+  max-width: 1250px;
+
+  min-height: 285px;
+
+  margin: 0 auto 30px;
+
+  padding: 45px 50px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  gap: 50px;
+  overflow: hidden;
 
-  max-width: 1300px;
+  border-radius: 22px;
 
-  margin: 0 auto 55px;
+  background:
+    linear-gradient(
+      120deg,
+      #eaf7ff,
+      #f9fcff
+    );
+
+  border: 1px solid #dceef9;
 }
 
-.dashboard-hero h1 {
-  max-width: 750px;
+.dashboard-hero::after {
+  content: "";
 
+  position: absolute;
+
+  width: 280px;
+  height: 280px;
+
+  right: -130px;
+  top: -120px;
+
+  border-radius: 50%;
+
+  border: 35px solid rgba(242, 195, 0, 0.65);
+}
+
+.hero-text {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 720px;
+}
+
+
+/* =========================================
+   TEXTOS PEQUEÑOS
+========================================= */
+
+.eyebrow {
+  margin: 0 0 12px;
+
+  color: #e1ad00;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   TÍTULO PRINCIPAL
+========================================= */
+
+.dashboard-hero h1 {
   margin: 0;
 
-  color: #ffffff;
+  color: #142d55;
 
-  font-family: Georgia, "Times New Roman", serif;
-
-  font-size: clamp(42px, 5vw, 70px);
-
-  font-weight: 400;
+  font-size: clamp(38px, 4vw, 58px);
 
   line-height: 1.05;
 
-  letter-spacing: -2px;
+  font-weight: 800;
 }
 
+.dashboard-hero h1 span {
+  color: #f2c300;
+}
+
+
+/* =========================================
+   DESCRIPCIÓN
+========================================= */
+
 .dashboard-description {
-  max-width: 600px;
+  max-width: 650px;
 
-  margin-top: 22px;
+  margin: 18px 0 0;
 
-  color: #9aaab7;
+  color: #6683a3;
 
   font-size: 16px;
 
   line-height: 1.7;
 }
 
-/* ================================
-   EYEBROW
-================================ */
 
-.eyebrow {
-  margin: 0 0 12px;
+/* =========================================
+   DECORACIÓN HERO
+========================================= */
 
-  color: #d6aa52;
+.hero-message {
+  position: relative;
 
-  font-size: 12px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
-  text-transform: uppercase;
-}
-
-/* ================================
-   FECHA
-================================ */
-
-.dashboard-date {
-  min-width: 180px;
-
-  padding-left: 35px;
-
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 2;
 
   display: flex;
+
   flex-direction: column;
+
+  gap: 12px;
+
+  padding-right: 45px;
 }
 
-.dashboard-date span {
-  color: #9eacb7;
+.hero-message span {
+  color: #6683a3;
 
-  font-size: 12px;
+  font-size: 13px;
 
-  font-weight: 700;
+  font-weight: 800;
 
-  letter-spacing: 2px;
+  letter-spacing: 4px;
 }
 
-.dashboard-date strong {
-  margin: 8px 0;
+.hero-line {
+  width: 55px;
+  height: 4px;
 
-  color: #d6aa52;
+  margin-top: 8px;
 
-  font-family: Georgia, serif;
+  border-radius: 20px;
 
-  font-size: 65px;
-
-  font-weight: 400;
+  background: #f2c300;
 }
 
-.dashboard-date small {
-  color: #a6b1ba;
 
-  font-size: 14px;
-}
+/* =========================================
+   OPCIONES PRINCIPALES
+========================================= */
 
-/* ================================
-   TÍTULOS
-================================ */
+.main-options {
+  max-width: 1250px;
 
-.section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  max-width: 1300px;
-
-  margin: 0 auto 25px;
-}
-
-.section-heading h2,
-.panel-heading h2,
-.profile-panel h2 {
-  margin: 0;
-
-  color: #ffffff;
-
-  font-family: Georgia, serif;
-
-  font-size: 32px;
-
-  font-weight: 400;
-}
-
-/* ================================
-   ESTADO DEL SISTEMA
-================================ */
-
-.status-pill {
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 10px 16px;
-
-  border: 1px solid rgba(100, 190, 145, 0.15);
-
-  border-radius: 30px;
-
-  background: rgba(48, 105, 78, 0.18);
-
-  color: #9db9ab;
-
-  font-size: 12px;
-}
-
-.status-pill i {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: #5ab482;
-}
-
-/* ================================
-   TARJETAS
-================================ */
-
-.summary-grid {
-  max-width: 1300px;
-
-  margin: 0 auto;
+  margin: 0 auto 30px;
 
   display: grid;
 
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
 
   gap: 20px;
 }
 
-.summary-card {
+.main-option {
   position: relative;
 
-  min-height: 170px;
+  min-height: 150px;
 
-  padding: 22px;
+  display: flex;
+  align-items: center;
 
-  overflow: hidden;
+  gap: 20px;
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 25px;
 
-  border-radius: 14px;
+  border-radius: 18px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(27, 48, 65, 0.95),
-      rgba(13, 30, 43, 0.95)
-    );
+  cursor: pointer;
 
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+  border: 1px solid transparent;
+
+  transition: 0.2s;
 }
 
-.summary-card:hover {
-  transform: translateY(-5px);
-
-  border-color: rgba(214, 170, 82, 0.35);
-
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+.main-option:hover {
+  transform: translateY(-3px);
 }
 
-.summary-card-icon {
-  width: 55px;
-  height: 55px;
+
+/* TARJETA AMARILLA */
+
+.main-option-yellow {
+  background: #fff9e5;
+
+  border-color: #f9e7a2;
+}
+
+
+/* TARJETA AZUL */
+
+.main-option-blue {
+  background: #edf8ff;
+
+  border-color: #d7ecfa;
+}
+
+
+/* ICONOS */
+
+.option-icon {
+  width: 65px;
+  height: 65px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 20px;
+  border-radius: 18px;
 
-  border-radius: 15px;
-
-  font-size: 25px;
+  font-size: 28px;
 }
 
-.summary-card p {
+.main-option-yellow .option-icon {
+  background: #fff0b5;
+}
+
+.main-option-blue .option-icon {
+  background: #d9efff;
+}
+
+
+/* TEXTO */
+
+.main-option h2 {
+  margin: 0 0 8px;
+
+  color: #142d55;
+
+  font-size: 20px;
+}
+
+.main-option p {
   margin: 0;
 
-  color: #a8b3bc;
+  color: #6a85a2;
 
   font-size: 14px;
 
-  font-weight: 500;
+  line-height: 1.5;
 }
 
-.summary-card strong {
-  display: block;
 
-  margin: 7px 0;
+/* FLECHA */
 
-  color: #ffffff;
+.option-arrow {
+  margin-left: auto;
 
-  font-family: Georgia, serif;
+  color: #f0bb00;
 
-  font-size: 34px;
-
-  font-weight: 400;
+  font-size: 28px;
 }
 
-.summary-card small {
-  font-size: 13px;
-}
 
-/* COLORES */
-
-.summary-card--gold .summary-card-icon {
-  background: rgba(193, 142, 37, 0.2);
-}
-
-.summary-card--gold small {
-  color: #d6aa52;
-}
-
-.summary-card--blue .summary-card-icon {
-  background: rgba(55, 145, 205, 0.2);
-}
-
-.summary-card--blue small {
-  color: #77b7e5;
-}
-
-.summary-card--orange .summary-card-icon {
-  background: rgba(220, 120, 40, 0.2);
-}
-
-.summary-card--orange small {
-  color: #e69a55;
-}
-
-.summary-card--green .summary-card-icon {
-  background: rgba(60, 170, 110, 0.2);
-}
-
-.summary-card--green small {
-  color: #7ac69d;
-}
-
-/* ================================
+/* =========================================
    PARTE INFERIOR
-================================ */
+========================================= */
 
 .dashboard-lower {
-  max-width: 1300px;
+  max-width: 1250px;
 
-  margin: 30px auto 0;
+  margin: 0 auto;
 
   display: grid;
 
-  grid-template-columns: 1.7fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 20px;
 }
 
-/* ================================
-   ACTIVIDAD
-================================ */
 
-.activity-panel,
-.profile-panel {
-  padding: 30px;
+/* =========================================
+   PANELES
+========================================= */
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.info-panel {
+  padding: 28px;
 
-  border-radius: 15px;
+  border-radius: 18px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(21, 40, 55, 0.95),
-      rgba(10, 25, 37, 0.95)
-    );
+  background: #ffffff;
+
+  border: 1px solid #e2edf5;
+
+  box-shadow:
+    0 8px 25px rgba(74, 119, 150, 0.07);
 }
 
 .panel-heading {
@@ -356,247 +560,363 @@
 
   justify-content: space-between;
 
-  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+.panel-heading h2 {
+  margin: 0;
+
+  color: #142d55;
+
+  font-size: 23px;
 }
 
 .view-button {
-  padding: 10px 18px;
-
-  border: 1px solid rgba(255, 255, 255, 0.12);
-
-  border-radius: 10px;
+  border: none;
 
   background: transparent;
 
-  color: #d7dfe5;
+  color: #378bd0;
+
+  font-size: 13px;
+
+  font-weight: 700;
 
   cursor: pointer;
-
-  transition: 0.2s;
 }
 
 .view-button:hover {
-  border-color: #d6aa52;
-
-  color: #d6aa52;
+  color: #f0bb00;
 }
 
-/* ================================
-   ACTIVIDADES
-================================ */
 
-.activity-item {
-  display: grid;
+/* =========================================
+   LISTA DE AULAS
+========================================= */
 
-  grid-template-columns: 48px 1fr auto;
+.classroom-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.classroom-item {
+  display: flex;
 
   align-items: center;
 
   gap: 15px;
 
-  padding: 20px 0;
+  padding: 12px;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+
+  border: 1px solid #edf2f6;
+
+  transition: 0.2s;
 }
 
-.activity-item:last-child {
-  border-bottom: none;
+.classroom-item:hover {
+  background: #f5fbff;
+
+  border-color: #cfe8f7;
 }
 
-.activity-icon {
+.classroom-icon {
   width: 42px;
   height: 42px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  border-radius: 50%;
+  border-radius: 11px;
 
-  font-size: 17px;
+  background: #eaf6ff;
+
+  color: #438ac8;
+
+  font-size: 12px;
+
+  font-weight: 800;
 }
 
-.activity-icon.gold {
-  background: rgba(193, 142, 37, 0.2);
-  color: #d6aa52;
-}
+.classroom-item strong {
+  display: block;
 
-.activity-icon.blue {
-  background: rgba(55, 145, 205, 0.2);
-}
-
-.activity-icon.green {
-  background: rgba(60, 170, 110, 0.2);
-}
-
-.activity-info strong {
-  color: #e5e9ec;
+  color: #142d55;
 
   font-size: 15px;
 }
 
-.activity-info p {
-  margin: 5px 0 0;
+.classroom-item span {
+  display: block;
 
-  color: #8796a2;
+  margin-top: 3px;
 
-  font-size: 13px;
-}
-
-.activity-item time {
-  color: #84929c;
+  color: #7891aa;
 
   font-size: 12px;
 }
 
-/* ================================
-   PERFIL
-================================ */
+.item-arrow {
+  margin-left: auto;
 
-.profile-panel h2 {
-  padding-bottom: 18px;
+  color: #8ba8c0 !important;
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 18px !important;
 }
 
-.profile-user {
+
+/* =========================================
+   ÚLTIMAS ASIGNACIONES
+========================================= */
+
+.assignment-list {
   display: flex;
 
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 25px 0;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-direction: column;
 }
 
-.profile-avatar {
-  width: 55px;
-  height: 55px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      #d6aa52,
-      #9b6a1f
-    );
-
-  color: white;
-
-  font-family: Georgia, serif;
-
-  font-size: 23px;
-}
-
-.profile-user strong {
-  display: block;
-
-  color: white;
-
-  font-size: 16px;
-}
-
-.profile-user span {
-  display: block;
-
-  margin-top: 5px;
-
-  color: #9aa6af;
-
-  font-size: 13px;
-
-  text-transform: uppercase;
-}
-
-.profile-details {
+.assignment-item {
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 12px 1fr auto;
 
-  gap: 20px;
+  align-items: center;
 
-  margin-top: 25px;
+  gap: 13px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #edf1f5;
 }
 
-.profile-details span {
-  display: block;
-
-  color: #8998a3;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 1px;
+.assignment-item:last-child {
+  border-bottom: none;
 }
 
-.profile-details strong {
+.assignment-dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+}
+
+.assignment-dot.yellow {
+  background: #f2c300;
+}
+
+.assignment-dot.blue {
+  background: #71b8e8;
+}
+
+.assignment-item strong {
   display: block;
 
-  margin-top: 7px;
-
-  color: #e8edf0;
+  color: #142d55;
 
   font-size: 14px;
 }
 
-/* ================================
-   RESPONSIVE
-================================ */
+.assignment-item span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #7790aa;
+
+  font-size: 12px;
+}
+
+.assignment-item time {
+  color: #8ba0b4;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   MENSAJE DON BOSCO
+========================================= */
+
+.don-bosco-message {
+  max-width: 1250px;
+
+  margin: 25px auto 0;
+
+  min-height: 75px;
+
+  padding: 18px 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #fff9e5,
+      #eef8ff
+    );
+
+  border: 1px solid #e9edf0;
+}
+
+.message-star {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fff0b3;
+
+  color: #eab900;
+
+  font-size: 20px;
+}
+
+.don-bosco-message p {
+  flex: 1;
+
+  margin: 0;
+
+  color: #5d7897;
+
+  font-size: 14px;
+}
+
+.don-bosco-message > span {
+  color: #7894ae;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
 
 @media (max-width: 1000px) {
 
-  .summary-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-lower {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-
   .dashboard-content {
-    padding: 35px 20px;
+    padding: 30px;
   }
 
   .dashboard-hero {
-    flex-direction: column;
+    padding: 35px;
   }
 
-  .dashboard-date {
+  .hero-message {
     display: none;
   }
 
-  .section-heading {
-    align-items: flex-start;
-
-    flex-direction: column;
-  }
-
-  .summary-grid {
+  .main-options,
+  .dashboard-lower {
     grid-template-columns: 1fr;
   }
 
-  .activity-item {
-    grid-template-columns: 48px 1fr;
+}
+
+
+/* =========================================
+   RESPONSIVE - MÓVIL
+========================================= */
+
+@media (max-width: 800px) {
+
+  .sidebar {
+    width: 220px;
+
+    min-width: 220px;
+
+    padding: 20px 12px;
   }
 
-  .activity-item time {
-    grid-column: 2;
+  .sidebar-brand strong {
+    font-size: 11px;
   }
+
+  .sidebar-link {
+    font-size: 13px;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .dashboard-content {
+    padding: 20px 15px;
+  }
+
+  .sidebar {
+    width: 75px;
+
+    min-width: 75px;
+
+    padding: 20px 8px;
+  }
+
+  .sidebar-brand {
+    justify-content: center;
+
+    padding: 0 0 20px;
+  }
+
+  .sidebar-brand > div:last-child,
+  .sidebar-title,
+  .sidebar-link > span:last-child,
+  .sidebar-footer {
+    display: none;
+  }
+
+  .sidebar-link {
+    justify-content: center;
+
+    padding: 0;
+  }
+
+  .sidebar-icon {
+    font-size: 22px;
+  }
+
+  .dashboard-hero {
+    min-height: auto;
+
+    padding: 30px 25px;
+  }
+
+  .dashboard-hero h1 {
+    font-size: 38px;
+  }
+
+  .main-option {
+    padding: 20px;
+  }
+
+  .info-panel {
+    padding: 20px;
+  }
+
+  .don-bosco-message > span {
+    display: none;
+  }
+
 }

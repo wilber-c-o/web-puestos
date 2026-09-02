@@ -1,6 +1,5 @@
 import { useState } from "react";
-import type { FormEventHandler } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import type { LoginCredentials } from "../../types/auth";
 import { authRepository } from "../../repositories/authRepository";
@@ -11,63 +10,68 @@ import "./loginpage.css";
 export default function LoginPage() {
   const navigate = useNavigate();
 
-
-
-
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin: FormEventHandler<HTMLFormElement> = async (event) => {
-    event.preventDefault();
+  const handleLogin = (credentials: LoginCredentials) => {
     setError("");
     setIsLoading(true);
 
+    const user = authRepository.login(credentials);
 
-      const credentials: LoginCredentials = {
-        carnet: String(formData.get("carnet") || ""),
-        password: String(formData.get("password") || ""),
-      };
-
-      await authRepository.login(credentials);
-
-      navigate("/");
-    } catch (err) {
+    if (!user) {
       setError("El carnet o la contraseña son incorrectos.");
-
-
+      setIsLoading(false);
+      return;
     }
+
+    setIsLoading(false);
+    navigate("/");
   };
 
   return (
     <main className="login-page">
       <div className="login-container">
 
-        {/* PANEL IZQUIERDO */}
-        <section className="login-left">
-          <div className="login-decoration decoration-one"></div>
-          <div className="login-decoration decoration-two"></div>
+        <section className="login-brand">
+          <div className="yellow-circle yellow-circle-one"></div>
+          <div className="yellow-circle yellow-circle-two"></div>
 
-
-
+          <div className="brand-content">
+            <p className="brand-small">COLEGIO</p>
 
             <h1>
-              Gestión de
-              <br />
-              <span>Asientos</span>
+              Don Bosco
+              <span>Gestión de Asientos</span>
             </h1>
 
+            <div className="brand-line"></div>
 
+            <p className="brand-description">
+              Organización, disciplina y formación
+            </p>
 
-            <div className="login-header">
-              <span className="login-school-label">
-                COLEGIO DON BOSCO
-              </span>
+            <div className="brand-decoration">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </section>
 
-              <h2>Iniciar sesión</h2>
+        <section className="login-section">
 
-              <p>
-                Ingresa tus credenciales para continuar.
-              </p>
+          <div className="login-card">
+
+            <div className="login-card-top">
+              <div className="db-logo">
+                DB
+              </div>
+
+              <div>
+                <p>COLEGIO DON BOSCO</p>
+                <span>Sucre - Bolivia</span>
+              </div>
             </div>
 
             <LoginForm
@@ -77,9 +81,10 @@ export default function LoginPage() {
             />
 
           </div>
+
         </section>
 
       </div>
     </main>
   );
-
+}

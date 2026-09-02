@@ -6,37 +6,6 @@ import { authRepository } from "../repositories/authRepository";
 
 import "./HomePage.css";
 
-const summaryCards = [
-  {
-    label: "Estudiantes registrados",
-    value: "128",
-    detail: "12 incorporados este mes",
-    icon: "👨‍🎓",
-    tone: "gold",
-  },
-  {
-    label: "Clases activas",
-    value: "8",
-    detail: "En jornada actualmente",
-    icon: "📖",
-    tone: "blue",
-  },
-  {
-    label: "Asientos ocupados",
-    value: "46",
-    detail: "De 60 disponibles",
-    icon: "🪑",
-    tone: "orange",
-  },
-  {
-    label: "Asientos libres",
-    value: "14",
-    detail: "Disponibles para asignar",
-    icon: "✓",
-    tone: "green",
-  },
-];
-
 function HomePage() {
   const navigate = useNavigate();
   const user = authRepository.getCurrentUser();
@@ -56,164 +25,364 @@ function HomePage() {
 
   return (
     <div className="dashboard">
+
       <Header user={user} onLogout={handleLogout} />
 
       <div className="dashboard-body">
+
         <NavigationBar />
 
         <main className="dashboard-content">
 
+          {/* BIENVENIDA */}
           <section className="dashboard-hero">
-            <div>
-              <p className="eyebrow">Panel de control</p>
+
+            <div className="hero-text">
+
+              <p className="eyebrow">
+                COLEGIO DON BOSCO
+              </p>
 
               <h1>
-                Todo listo para organizar tu jornada.
+                Gestión de
+                <br />
+                <span>Asientos</span>
               </h1>
 
               <p className="dashboard-description">
-                Consulta el estado de los puestos y administra la
-                información de los estudiantes desde un solo lugar.
+                Organiza los puestos de tu aula de forma sencilla.
+                Administra estudiantes, aulas y asignaciones desde
+                un solo lugar.
               </p>
+
             </div>
 
-            <div className="dashboard-date">
-              <span>HOY</span>
-              <strong>18</strong>
-              <small>junio, 2025</small>
+            <div className="hero-message">
+
+              <span>ESTUDIO</span>
+              <span>TRABAJO</span>
+              <span>DISCIPLINA</span>
+
+              <div className="hero-line"></div>
+
             </div>
+
           </section>
 
-          <section>
 
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Vista general</p>
-                <h2>Resumen del día</h2>
+          {/* OPCIONES PRINCIPALES */}
+          <section className="main-options">
+
+            <article
+              className="main-option main-option-yellow"
+              onClick={() => navigate("/asientos")}
+            >
+
+              <div className="option-icon">
+                🪑
               </div>
 
-              <span className="status-pill">
-                <i />
-                Sistema actualizado
+              <div>
+                <h2>Gestionar asientos</h2>
+
+                <p>
+                  Visualiza el mapa de asientos y organiza
+                  los puestos de tus aulas.
+                </p>
+              </div>
+
+              <span className="option-arrow">
+                →
               </span>
-            </div>
 
-            <div className="summary-grid">
-              {summaryCards.map((card) => (
-                <article
-                  className={`summary-card summary-card--${card.tone}`}
-                  key={card.label}
-                >
-                  <div className="summary-card-icon">
-                    {card.icon}
-                  </div>
+            </article>
 
-                  <p>{card.label}</p>
 
-                  <strong>{card.value}</strong>
+            <article
+              className="main-option main-option-blue"
+              onClick={() => navigate("/estudiantes")}
+            >
 
-                  <small>{card.detail}</small>
-                </article>
-              ))}
-            </div>
+              <div className="option-icon">
+                👥
+              </div>
+
+              <div>
+                <h2>Administrar estudiantes</h2>
+
+                <p>
+                  Registra, edita y consulta la información
+                  de los estudiantes.
+                </p>
+              </div>
+
+              <span className="option-arrow">
+                →
+              </span>
+
+            </article>
 
           </section>
 
+
+          {/* CONTENIDO INFERIOR */}
           <section className="dashboard-lower">
 
-            <article className="activity-panel">
+
+            {/* AULAS */}
+            <article className="info-panel">
 
               <div className="panel-heading">
+
                 <div>
-                  <p className="eyebrow">Actividad reciente</p>
-                  <h2>Últimos movimientos</h2>
+                  <p className="eyebrow">
+                    Organización
+                  </p>
+
+                  <h2>
+                    Mis aulas
+                  </h2>
                 </div>
 
-                <button className="view-button">
-                  Ver todo →
+                <button
+                  className="view-button"
+                  onClick={() => navigate("/clases")}
+                >
+                  Ver todas →
                 </button>
+
               </div>
 
-              <div className="activity-item">
-                <div className="activity-icon gold">
-                  ✦
+
+              <div className="classroom-list">
+
+                <div className="classroom-item">
+                  <div className="classroom-icon">
+                    01
+                  </div>
+
+                  <div>
+                    <strong>
+                      Aula 1
+                    </strong>
+
+                    <span>
+                      1° de Secundaria A
+                    </span>
+                  </div>
+
+                  <span className="item-arrow">
+                    →
+                  </span>
                 </div>
 
-                <div className="activity-info">
-                  <strong>Nueva asignación de puesto</strong>
-                  <p>Clase de Matemática · Puesto B-12</p>
+
+                <div className="classroom-item">
+                  <div className="classroom-icon">
+                    02
+                  </div>
+
+                  <div>
+                    <strong>
+                      Aula 2
+                    </strong>
+
+                    <span>
+                      1° de Secundaria B
+                    </span>
+                  </div>
+
+                  <span className="item-arrow">
+                    →
+                  </span>
                 </div>
 
-                <time>Hace 8 min</time>
-              </div>
 
-              <div className="activity-item">
-                <div className="activity-icon blue">
-                  👤
+                <div className="classroom-item">
+                  <div className="classroom-icon">
+                    03
+                  </div>
+
+                  <div>
+                    <strong>
+                      Aula 3
+                    </strong>
+
+                    <span>
+                      2° de Secundaria A
+                    </span>
+                  </div>
+
+                  <span className="item-arrow">
+                    →
+                  </span>
                 </div>
 
-                <div className="activity-info">
-                  <strong>Estudiante registrado</strong>
-                  <p>María Fernanda López fue agregada al sistema</p>
+
+                <div className="classroom-item">
+                  <div className="classroom-icon">
+                    04
+                  </div>
+
+                  <div>
+                    <strong>
+                      Aula 4
+                    </strong>
+
+                    <span>
+                      2° de Secundaria B
+                    </span>
+                  </div>
+
+                  <span className="item-arrow">
+                    →
+                  </span>
                 </div>
 
-                <time>Hace 24 min</time>
-              </div>
-
-              <div className="activity-item">
-                <div className="activity-icon green">
-                  🪑
-                </div>
-
-                <div className="activity-info">
-                  <strong>Asiento liberado</strong>
-                  <p>Clase de Ciencias · Puesto A-04</p>
-                </div>
-
-                <time>Hace 1 h</time>
               </div>
 
             </article>
 
-            <aside className="profile-panel">
 
-              <p className="eyebrow">Tu perfil</p>
+            {/* ÚLTIMAS ASIGNACIONES */}
+            <article className="info-panel">
 
-              <h2>Sesión actual</h2>
-
-              <div className="profile-user">
-
-                <div className="profile-avatar">
-                  {user.name.charAt(0)}
-                </div>
+              <div className="panel-heading">
 
                 <div>
-                  <strong>{user.name}</strong>
-                  <span>{user.role}</span>
+                  <p className="eyebrow">
+                    Asientos
+                  </p>
+
+                  <h2>
+                    Últimas asignaciones
+                  </h2>
+                </div>
+
+                <button
+                  className="view-button"
+                  onClick={() => navigate("/asignaciones")}
+                >
+                  Ver todas →
+                </button>
+
+              </div>
+
+
+              <div className="assignment-list">
+
+                <div className="assignment-item">
+
+                  <div className="assignment-dot yellow"></div>
+
+                  <div>
+                    <strong>
+                      Juan Pérez
+                    </strong>
+
+                    <span>
+                      Aula 1 · Puesto 12
+                    </span>
+                  </div>
+
+                  <time>
+                    10:24
+                  </time>
+
+                </div>
+
+
+                <div className="assignment-item">
+
+                  <div className="assignment-dot blue"></div>
+
+                  <div>
+                    <strong>
+                      María Gómez
+                    </strong>
+
+                    <span>
+                      Aula 3 · Puesto 05
+                    </span>
+                  </div>
+
+                  <time>
+                    09:47
+                  </time>
+
+                </div>
+
+
+                <div className="assignment-item">
+
+                  <div className="assignment-dot yellow"></div>
+
+                  <div>
+                    <strong>
+                      Luis Fernández
+                    </strong>
+
+                    <span>
+                      Aula 2 · Puesto 18
+                    </span>
+                  </div>
+
+                  <time>
+                    08:31
+                  </time>
+
+                </div>
+
+
+                <div className="assignment-item">
+
+                  <div className="assignment-dot blue"></div>
+
+                  <div>
+                    <strong>
+                      Ana Torres
+                    </strong>
+
+                    <span>
+                      Aula 1 · Puesto 07
+                    </span>
+                  </div>
+
+                  <time>
+                    08:12
+                  </time>
+
                 </div>
 
               </div>
 
-              <div className="profile-details">
+            </article>
 
-                <div>
-                  <span>CARNET</span>
-                  <strong>{user.carnet}</strong>
-                </div>
+          </section>
 
-                <div>
-                  <span>ACCESO</span>
-                  <strong>Administrador</strong>
-                </div>
 
-              </div>
+          {/* MENSAJE FINAL */}
+          <section className="don-bosco-message">
 
-            </aside>
+            <div className="message-star">
+              ★
+            </div>
+
+            <p>
+              Un entorno organizado también forma
+              mejores personas.
+            </p>
+
+            <span>
+              COLEGIO DON BOSCO
+            </span>
 
           </section>
 
         </main>
+
       </div>
+
     </div>
   );
 }
