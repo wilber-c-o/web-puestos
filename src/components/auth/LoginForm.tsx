@@ -5,15 +5,20 @@ import type { LoginCredentials } from "../../types/auth";
 
 interface LoginFormProps {
   error?: string;
+  isLoading?: boolean;
   onSubmit: (credentials: LoginCredentials) => void;
 }
 
-function LoginForm({ error, onSubmit }: LoginFormProps) {
+function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
   const [carnet, setCarnet] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+
+    if (isLoading) {
+      return;
+    }
 
     const normalizedCarnet = carnet.trim();
 
@@ -41,20 +46,23 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
       </div>
 
       <div className="form-field">
-        <label htmlFor="carnet">
-          Carnet de identidad
-        </label>
+        <div className="form-field__label-row">
+          <label htmlFor="carnet">Carnet de identidad</label>
+          <span>Acceso institucional</span>
+        </div>
 
-        <input
-          id="carnet"
-          name="carnet"
-          type="text"
-          value={carnet}
-          onChange={(event) => setCarnet(event.target.value)}
-          placeholder="Ingresa tu carnet"
-          autoComplete="username"
-          required
-        />
+        <div className="form-field__input-wrap">
+          <input
+            id="carnet"
+            name="carnet"
+            type="text"
+            value={carnet}
+            onChange={(event) => setCarnet(event.target.value)}
+            placeholder="Ingresa tu carnet"
+            autoComplete="username"
+            required
+          />
+        </div>
       </div>
 
       <div className="form-field">
@@ -62,16 +70,18 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
           Contraseña
         </label>
 
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="Ingresa tu contraseña"
-          autoComplete="current-password"
-          required
-        />
+        <div className="form-field__input-wrap">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Ingresa tu contraseña"
+            autoComplete="current-password"
+            required
+          />
+        </div>
       </div>
 
       {error && (
@@ -83,10 +93,18 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
       <button
         className="login-form__submit"
         type="submit"
+        disabled={isLoading}
+        aria-busy={isLoading}
       >
-        Iniciar sesión
+        <span className="login-form__submit-text">
+          {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+        </span>
         <span aria-hidden="true">→</span>
       </button>
+
+      <p className="login-form__help">
+        Prueba de acceso: carnet <strong>13938140</strong> · contraseña <strong>123</strong>
+      </p>
 
     </form>
   );
