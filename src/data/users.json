@@ -9,8 +9,8 @@
   {
     "id": "user-2",
     "name": "Usuario de prueba",
-    "carnet": "13938140",
-    "password": "123",
+    "carnet": "7654321",
+    "password": "usuario123",
     "role": "USUARIO"
   }
 ]

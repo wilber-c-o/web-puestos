@@ -37,7 +37,7 @@ Después, abra la dirección que Vite muestre en la terminal, normalmente `http:
 
 | Usuario | Carnet | Contraseña |
 | --- | --- | --- |
-| Administrador | `1234567` | `admin123` |
+| Administrador | `13938140` | `123` |
 | Usuario de prueba | `7654321` | `usuario123` |
 
 > Estas credenciales son únicamente para desarrollo. No deben utilizarse en un entorno de producción.
