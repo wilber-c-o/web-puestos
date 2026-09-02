@@ -13,6 +13,7 @@ export default function LoginPage() {
 
 
 
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,6 +34,7 @@ export default function LoginPage() {
     } catch (err) {
       setError("El carnet o la contraseña son incorrectos.");
 
+
     }
   };
 
@@ -44,6 +46,7 @@ export default function LoginPage() {
         <section className="login-left">
           <div className="login-decoration decoration-one"></div>
           <div className="login-decoration decoration-two"></div>
+
 
 
 
@@ -79,5 +82,4 @@ export default function LoginPage() {
       </div>
     </main>
   );
-
 

@@ -32,6 +32,19 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
     });
   };
 
+  const handleTestAccess = () => {
+    if (isLoading) {
+      return;
+    }
+
+    setCarnet("13938140");
+    setPassword("123");
+    onSubmit({
+      carnet: "13938140",
+      password: "123",
+    });
+  };
+
   return (
     <form className="login-form" onSubmit={handleSubmit}>
 
@@ -101,6 +114,7 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
         </span>
         <span aria-hidden="true">→</span>
       </button>
+
 
 
     </form>
