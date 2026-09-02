@@ -115,18 +115,7 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
         <span aria-hidden="true">→</span>
       </button>
 
-      <button
-        className="login-form__test-access"
-        type="button"
-        onClick={handleTestAccess}
-        disabled={isLoading}
-      >
-        Usar acceso de prueba
-      </button>
 
-      <p className="login-form__help">
-        Prueba de acceso: carnet <strong>13938140</strong> · contraseña <strong>123</strong>
-      </p>
 
     </form>
   );

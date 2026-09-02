@@ -1,28 +1,63 @@
 const navigationItems = [
-  "Estudiantes",
-  "Clases",
-  "Asientos ocupados",
-  "Asientos libres",
+  { icon: "⌂", label: "Vista general" },
+  { icon: "♙", label: "Estudiantes" },
+  { icon: "▣", label: "Clases" },
+  { icon: "♧", label: "Asientos" },
+  { icon: "▤", label: "Asignaciones" },
+  { icon: "▥", label: "Reportes" },
+  { icon: "⚙", label: "Configuración" },
 ];
-
 
 function NavigationBar() {
   return (
-    <nav className="navigation-bar" aria-label="Navegación principal">
-      <div className="navigation-bar__content">
-        {navigationItems.map((item) => (
+    <aside className="sidebar">
+
+      <div className="sidebar-title">
+        PANEL DE CONTROL
+      </div>
+
+      <nav className="sidebar-navigation">
+
+        {navigationItems.map((item, index) => (
           <a
-            className="navigation-bar__link"
-            href={`#${item.toLowerCase().replaceAll(" ", "-")}`}
-            key={item}
+            href="#"
+            className={`sidebar-link ${
+              index === 0 ? "sidebar-link-active" : ""
+            }`}
+            key={item.label}
           >
-            {item}
+            <span className="sidebar-icon">
+              {item.icon}
+            </span>
+
+            {item.label}
           </a>
         ))}
+
+      </nav>
+
+      <div className="sidebar-footer">
+
+        <div className="don-bosco-logo">
+          DB
+        </div>
+
+        <strong>COLEGIO DON BOSCO</strong>
+
+        <p>
+          Formamos buenos cristianos
+          <br />
+          y honrados ciudadanos
+        </p>
+
+        <small>
+          © 2026 Colegio Don Bosco
+        </small>
+
       </div>
-    </nav>
+
+    </aside>
   );
 }
-
 
 export default NavigationBar;
