@@ -1,82 +1,82 @@
 import { useState } from "react";
+import type { FormEventHandler } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
-import LoginForm from "../../components/auth/LoginForm";
-import { authRepository } from "../../repositories/authRepository";
-
 import type { LoginCredentials } from "../../types/auth";
+import { authRepository } from "../../repositories/authRepository";
+import LoginForm from "../../components/auth/LoginForm";
 
 import "./loginpage.css";
 
-function LoginPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+
+
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  if (authRepository.isAuthenticated()) {
-    return <Navigate to="/" replace />;
-  }
-
-  const handleLogin = (credentials: LoginCredentials) => {
+  const handleLogin: FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
     setError("");
     setIsLoading(true);
 
-    const user = authRepository.login(credentials);
+    try {
+      const formData = new FormData(event.currentTarget);
 
-    if (!user) {
+      const credentials: LoginCredentials = {
+        carnet: String(formData.get("carnet") || ""),
+        password: String(formData.get("password") || ""),
+      };
+
+      await authRepository.login(credentials);
+
+      navigate("/");
+    } catch (err) {
       setError("El carnet o la contraseña son incorrectos.");
-      setIsLoading(false);
-      return;
-    }
 
-    navigate("/", { replace: true });
+    }
   };
 
   return (
     <main className="login-page">
-      <section className="login-container">
+      <div className="login-container">
 
-        {/* LADO IZQUIERDO */}
-        <div className="login-left">
-          <div className="login-brand" aria-label="Colegio Don Bosco">
-            <span className="login-brand__mark" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            <span>Colegio Don Bosco</span>
-          </div>
-          <div className="login-left-content">
-            <p className="login-left__eyebrow">Sistema académico</p>
+        {/* PANEL IZQUIERDO */}
+        <section className="login-left">
+          <div className="login-decoration decoration-one"></div>
+          <div className="login-decoration decoration-two"></div>
+
+
             <h1>
               Gestión de
               <br />
-              Asientos
+              <span>Asientos</span>
             </h1>
 
-            <p className="login-left__description">
-              Una forma clara y sencilla de organizar cada espacio de tu jornada.
-            </p>
-            <div className="login-left__highlight">
-              <span aria-hidden="true">✓</span>
-              <p>Organización eficiente para toda la comunidad educativa.</p>
+
+
+            <div className="login-header">
+              <span className="login-school-label">
+                COLEGIO DON BOSCO
+              </span>
+
+              <h2>Iniciar sesión</h2>
+
+              <p>
+                Ingresa tus credenciales para continuar.
+              </p>
             </div>
+
+            <LoginForm
+              onSubmit={handleLogin}
+              isLoading={isLoading}
+              error={error}
+            />
+
           </div>
-          <p className="login-left__footer">Plataforma de gestión escolar</p>
-        </div>
+        </section>
 
-        {/* LADO DERECHO */}
-        <div className="login-right">
-          <LoginForm
-            error={error}
-            isLoading={isLoading}
-            onSubmit={handleLogin}
-          />
-        </div>
-
-      </section>
+      </div>
     </main>
   );
-}
 
-export default LoginPage;
