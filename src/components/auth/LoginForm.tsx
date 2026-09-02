@@ -102,7 +102,6 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
         <span aria-hidden="true">→</span>
       </button>
 
-      <p className="login-form__help">Usa las credenciales asignadas por el colegio.</p>
 
     </form>
   );

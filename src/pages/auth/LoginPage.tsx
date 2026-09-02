@@ -12,6 +12,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
 
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -20,8 +21,6 @@ export default function LoginPage() {
     setError("");
     setIsLoading(true);
 
-    try {
-      const formData = new FormData(event.currentTarget);
 
       const credentials: LoginCredentials = {
         carnet: String(formData.get("carnet") || ""),
@@ -45,6 +44,7 @@ export default function LoginPage() {
         <section className="login-left">
           <div className="login-decoration decoration-one"></div>
           <div className="login-decoration decoration-two"></div>
+
 
 
             <h1>
@@ -79,4 +79,5 @@ export default function LoginPage() {
       </div>
     </main>
   );
+
 
