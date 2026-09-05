@@ -1,13 +1,42 @@
+import { useNavigate, useLocation } from "react-router-dom";
+
 const navigationItems = [
-  { icon: "⌂", label: "Vista general" },
-  { icon: "♙", label: "Estudiantes" },
-  { icon: "▣", label: "Clases" },
-  { icon: "♧", label: "Asientos" },
-  { icon: "▤", label: "Asignaciones" },
-  { icon: "⚙", label: "Configuración" },
+  {
+    icon: "⌂",
+    label: "Vista general",
+    path: "/",
+  },
+  {
+    icon: "♙",
+    label: "Estudiantes",
+    path: "/estudiantes",
+  },
+  {
+    icon: "▣",
+    label: "Clases",
+    path: "/clases",
+  },
+  {
+    icon: "♧",
+    label: "Asientos",
+    path: "/asientos",
+  },
+  {
+    icon: "▤",
+    label: "Asignaciones",
+    path: "/asignaciones",
+  },
+  {
+    icon: "⚙",
+    label: "Configuración",
+    path: "/configuracion",
+  },
 ];
 
 function NavigationBar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <aside className="sidebar">
 
@@ -30,20 +59,25 @@ function NavigationBar() {
 
       <nav className="sidebar-navigation">
 
-        {navigationItems.map((item, index) => (
-          <a
-            href="#"
+        {navigationItems.map((item) => (
+          <button
+            type="button"
             className={`sidebar-link ${
-              index === 0 ? "sidebar-link-active" : ""
+              location.pathname === item.path
+                ? "sidebar-link-active"
+                : ""
             }`}
             key={item.label}
+            onClick={() => navigate(item.path)}
           >
+
             <span className="sidebar-icon">
               {item.icon}
             </span>
 
             <span>{item.label}</span>
-          </a>
+
+          </button>
         ))}
 
       </nav>
