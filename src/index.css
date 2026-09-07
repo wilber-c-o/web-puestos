@@ -1,395 +1,60 @@
 :root {
-  font-family:
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
+  font-family: "Segoe UI", Arial, sans-serif;
   color: #ffffff;
-
   background: #081521;
-
   font-synthesis: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  background: #081521;
-}
-
-body {
-  margin: 0;
-
-  min-width: 320px;
-
-  background: #081521;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-/* ================================
-   ESTRUCTURA
-================================ */
-
-.dashboard {
-  min-height: 100vh;
-
-  background: #081521;
-}
-
-.dashboard-body {
-  display: grid;
-
-  grid-template-columns: 260px 1fr;
-
-  min-height: calc(100vh - 85px);
-}
-
-/* ================================
-   HEADER
-================================ */
-
-.app-header {
-  height: 85px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  padding: 0 30px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #081521,
-      #10293a
-    );
-
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.1);
-
-  color: white;
-}
-
-.app-header__brand {
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  font-family: Georgia, serif;
-
-  font-size: 22px;
-
-  font-weight: 600;
-}
-
-.app-header__mark {
-  display: flex;
-
-  align-items: flex-end;
-
-  gap: 4px;
-
-  height: 30px;
-}
-
-.app-header__mark span {
-  width: 5px;
-
-  border-radius: 3px;
-
-  background: #d6aa52;
-}
-
-.app-header__mark span:nth-child(1) {
-  height: 12px;
-}
-
-.app-header__mark span:nth-child(2) {
-  height: 22px;
-}
-
-.app-header__mark span:nth-child(3) {
-  height: 30px;
-}
-
-/* ================================
-   USUARIO
-================================ */
-
-.app-header__user {
-  display: flex;
-
-  align-items: center;
-
-  gap: 20px;
-}
-
-.app-header__user p {
-  margin: 0 0 5px;
-
-  color: #a6b3bc;
-
-  font-size: 11px;
-
-  letter-spacing: 1px;
-
-  text-transform: uppercase;
-
-  text-align: right;
-}
-
-.app-header__user strong {
-  display: block;
-
-  font-size: 15px;
-
-  text-align: right;
-}
-
-.app-header__logout {
-  padding: 12px 18px;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.2);
-
-  border-radius: 8px;
-
-  background: transparent;
-
-  color: #e8edf0;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.app-header__logout:hover {
-  background: #d6aa52;
-
-  color: #081521;
-
-  border-color: #d6aa52;
-}
-
-/* ================================
-   SIDEBAR
-================================ */
-
-.sidebar {
-  position: relative;
-
-  min-height: calc(100vh - 85px);
-
-  display: flex;
-
-  flex-direction: column;
-
-  padding: 35px 15px 20px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #091a29,
-      #07131e
-    );
-
-  border-right:
-    1px solid rgba(255, 255, 255, 0.08);
-}
-
-.sidebar-title {
-  padding: 0 14px;
-
-  margin-bottom: 25px;
-
-  color: #d6aa52;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-}
-
-.sidebar-navigation {
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 8px;
-}
-
-.sidebar-link {
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-  padding: 15px 14px;
-
-  border-radius: 10px;
-
-  color: #9facb5;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-  transition: 0.2s;
-}
-
-.sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.05);
-
-  color: white;
-}
-
-.sidebar-link-active {
-  color: #e1bd70;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(214, 170, 82, 0.2),
-      rgba(214, 170, 82, 0.05)
-    );
-
-  border-left: 3px solid #d6aa52;
-}
-
-.sidebar-icon {
-  width: 22px;
-
-  font-size: 19px;
-
-  text-align: center;
-}
-
-/* ================================
-   FOOTER SIDEBAR
-================================ */
-
-.sidebar-footer {
-  margin-top: auto;
-
-  padding-top: 30px;
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.08);
-
-  text-align: center;
-
-  color: #7f909c;
-}
-
-.don-bosco-logo {
-  width: 75px;
-  height: 75px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  margin: 0 auto 15px;
-
-  border:
-    2px solid #d6aa52;
-
-  border-radius: 50%;
-
-  color: #d6aa52;
-
-  font-family: Georgia, serif;
-
-  font-size: 25px;
-
-  font-weight: bold;
-}
-
-.sidebar-footer strong {
-  display: block;
-
-  color: #d8b96e;
-
-  font-family: Georgia, serif;
-
-  font-size: 13px;
-
-  letter-spacing: 1px;
-}
-
-.sidebar-footer p {
-  margin: 10px 0 25px;
-
-  font-size: 12px;
-
-  line-height: 1.6;
-}
-
-.sidebar-footer small {
-  font-size: 11px;
-}
-
-/* ================================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 900px) {
-
-  .dashboard-body {
-    grid-template-columns: 80px 1fr;
-  }
-
-  .sidebar-title,
-  .sidebar-link {
-    font-size: 0;
-  }
-
-  .sidebar-icon {
-    width: 100%;
-
-    font-size: 20px;
-  }
-
-  .sidebar-footer {
-    display: none;
-  }
-
-  .sidebar-link {
-    justify-content: center;
-
-    padding: 15px 5px;
-  }
-}
-
-@media (max-width: 600px) {
-
-  .app-header__brand {
-    font-size: 16px;
-  }
-
-  .app-header__user div {
-    display: none;
-  }
-
-  .dashboard-body {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    display: none;
-  }
-}
+* { box-sizing: border-box; }
+html { background: #081521; }
+body { margin: 0; min-width: 320px; background: #081521; }
+button, input { font: inherit; }
+.dashboard { min-height: 100vh; background: #081521; }
+.dashboard-body { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 85px); }
+
+.app-header { height: 85px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background: linear-gradient(90deg,#081521,#10293a); border-bottom: 1px solid rgba(255,255,255,.1); color: white; }
+.app-header__brand { display: flex; align-items: center; gap: 15px; font-family: Georgia,serif; font-size: 22px; font-weight: 600; }
+.app-header__mark { display:flex; align-items:flex-end; gap:4px; height:30px; }
+.app-header__mark span { width:5px; border-radius:3px; background:#d6aa52; }
+.app-header__mark span:nth-child(1){height:12px}.app-header__mark span:nth-child(2){height:22px}.app-header__mark span:nth-child(3){height:30px}
+.app-header__user { display:flex; align-items:center; gap:20px; }.app-header__user p{margin:0 0 5px;color:#a6b3bc;font-size:11px;letter-spacing:1px;text-transform:uppercase;text-align:right}.app-header__user strong{display:block;font-size:15px;text-align:right}.app-header__logout{padding:12px 18px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:transparent;color:#e8edf0;cursor:pointer;transition:.2s}.app-header__logout:hover{background:#d6aa52;color:#081521;border-color:#d6aa52}
+
+.sidebar { position:relative; min-height:calc(100vh - 85px); display:flex; flex-direction:column; padding:35px 15px 20px; background:linear-gradient(180deg,#091a29,#07131e); border-right:1px solid rgba(255,255,255,.08); }
+.sidebar-title{padding:0 14px;margin-bottom:25px;color:#d6aa52;font-size:11px;font-weight:700;letter-spacing:2px}.sidebar-navigation{display:flex;flex-direction:column;gap:8px}.sidebar-link{display:flex;align-items:center;gap:15px;padding:15px 14px;border-radius:10px;color:#9facb5;text-decoration:none;font-size:15px;transition:.2s;background:transparent;border:0;cursor:pointer;text-align:left}.sidebar-link:hover{background:rgba(255,255,255,.05);color:white}.sidebar-link-active{color:#e1bd70;background:linear-gradient(90deg,rgba(214,170,82,.2),rgba(214,170,82,.05));border-left:3px solid #d6aa52}.sidebar-icon{width:22px;font-size:19px;text-align:center}.sidebar-footer{margin-top:auto;padding-top:30px;border-top:1px solid rgba(255,255,255,.08);text-align:center;color:#7f909c}.sidebar-footer p{margin:10px 0 25px;font-size:12px;line-height:1.6}
+
+.dashboard-content { min-width:0; padding:0; }
+
+.students-page { max-width:1180px; margin:0 auto; padding:42px 42px 60px; }
+.students-topbar { display:flex; align-items:center; justify-content:space-between; gap:25px; margin-bottom:30px; }
+.students-topbar .eyebrow,.students-list-header .eyebrow { margin:0 0 8px; color:#d6aa52; font-size:11px; font-weight:700; letter-spacing:2px; }
+.students-topbar h1 { margin:0; font-family:Georgia,serif; font-size:38px; line-height:1.1; }
+.students-add-button { display:flex; align-items:center; gap:9px; padding:13px 20px; border:0; border-radius:10px; background:#d6aa52; color:#081521; font-weight:700; cursor:pointer; box-shadow:0 8px 22px rgba(214,170,82,.16); transition:.2s; }
+.students-add-button:hover { transform:translateY(-1px); background:#e2bb68; }
+.students-add-button span { font-size:21px; line-height:1; }
+
+.students-add-panel,.students-search-panel,.students-list-panel { background:linear-gradient(145deg,#10283a,#0b1e2d); border:1px solid rgba(255,255,255,.08); border-radius:16px; box-shadow:0 12px 35px rgba(0,0,0,.16); }
+.students-add-panel { padding:22px; margin-bottom:20px; }
+.students-add-panel h2,.students-search-panel h2,.students-list-panel h2 { margin:0; font-size:20px; }
+.students-add-panel p { margin:7px 0 18px; color:#8fa0ab; font-size:14px; }
+.students-add-form { display:flex; gap:12px; }
+.students-add-form input,.students-search-box input { width:100%; outline:none; color:white; background:#081923; border:1px solid rgba(255,255,255,.12); }
+.students-add-form input { padding:14px 16px; border-radius:10px; }
+.students-add-form input:focus,.students-search-box input:focus { border-color:#d6aa52; }
+.students-add-form button { padding:0 20px; border:0; border-radius:10px; background:#d6aa52; color:#081521; font-weight:700; cursor:pointer; }
+
+.students-search-panel { padding:24px; margin-bottom:20px; }
+.students-search-title { display:flex; align-items:center; justify-content:space-between; gap:15px; margin-bottom:15px; }
+.students-search-title span { color:#9aaab5; font-size:13px; }
+.students-search-box { display:flex; align-items:center; gap:10px; padding:0 15px; background:#081923; border:1px solid rgba(255,255,255,.12); border-radius:11px; }
+.students-search-box span { color:#d6aa52; font-size:25px; }.students-search-box input{padding:14px 0;border:0;background:transparent;font-size:15px}
+
+.students-list-panel { overflow:hidden; }
+.students-list-header { display:flex; align-items:center; justify-content:space-between; padding:24px; border-bottom:1px solid rgba(255,255,255,.08); }
+.students-count { min-width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(214,170,82,.13); color:#d6aa52; font-weight:700; }
+.students-list { padding:10px 20px 20px; }
+.student-row { display:flex; align-items:center; gap:14px; padding:15px 5px; border-bottom:1px solid rgba(255,255,255,.06); }
+.student-row:last-child { border-bottom:0; }.student-number{width:28px;color:#71818d;text-align:center;font-size:12px}.student-avatar{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(214,170,82,.14);color:#d6aa52;font-weight:700;font-size:17px}.student-info{flex:1;min-width:0}.student-info strong{display:block;font-size:15px}.student-info span{display:block;margin-top:3px;color:#71828d;font-size:12px}.student-delete-button{padding:8px 12px;border:1px solid rgba(255,255,255,.1);border-radius:8px;background:transparent;color:#a8b4bb;font-size:12px;cursor:pointer}.student-delete-button:hover{border-color:#b76d6d;color:#e3a0a0}
+.students-empty { padding:55px 20px; text-align:center; color:#82939e; }.students-empty div{font-size:30px;color:#d6aa52}.students-empty h3{margin:12px 0 5px;color:#dbe2e6}.students-empty p{margin:0;font-size:13px}
+
+@media(max-width:900px){.dashboard-body{grid-template-columns:80px 1fr}.sidebar-title,.sidebar-link{font-size:0}.sidebar-icon{width:100%;font-size:20px}.sidebar-footer{display:none}.sidebar-link{justify-content:center;padding:15px 5px}.students-page{padding:30px 24px}}
+@media(max-width:600px){.app-header__brand{font-size:16px}.app-header__user div{display:none}.dashboard-body{grid-template-columns:1fr}.sidebar{display:none}.students-page{padding:25px 16px}.students-topbar{align-items:flex-start;flex-direction:column}.students-topbar h1{font-size:32px}.students-add-button{width:100%;justify-content:center}.students-add-form{flex-direction:column}.students-add-form button{padding:13px}.student-delete-button{font-size:0}.student-delete-button:after{content:"×";font-size:20px}.students-list{padding:8px 12px 15px}}
