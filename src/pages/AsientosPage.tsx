@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
@@ -7,13 +7,15 @@ import { authRepository } from "../repositories/authRepository";
 
 function AsientosPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const user = authRepository.getCurrentUser();
 
+  const cursoSeleccionado = searchParams.get("curso") || "Curso sin seleccionar";
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
 
   const handleLogout = () => {
     authRepository.logout();
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
 
   if (!user) {
@@ -24,21 +26,15 @@ function AsientosPage() {
 
   return (
     <div className="dashboard">
-
       <Header user={user} onLogout={handleLogout} />
 
       <div className="dashboard-body">
-
         <NavigationBar />
 
         <main className="dashboard-content">
-
           <section className="dashboard-hero">
-
             <div className="hero-text">
-              <p className="eyebrow">
-                GESTIÓN DE ASIENTOS
-              </p>
+              <p className="eyebrow">GESTIÓN DE ASIENTOS</p>
 
               <h1>
                 Organizar
@@ -47,50 +43,39 @@ function AsientosPage() {
               </h1>
 
               <p className="dashboard-description">
-                Selecciona un puesto para organizar
-                los asientos de los estudiantes.
+                Organiza los asientos de los estudiantes del curso seleccionado.
               </p>
             </div>
-
           </section>
 
           <section className="info-panel">
-
             <div className="panel-heading">
-
               <div>
-                <p className="eyebrow">
-                  AULA
-                </p>
-
-                <h2>
-                  Aula 1
-                </h2>
+                <p className="eyebrow">CURSO SELECCIONADO</p>
+                <h2>{cursoSeleccionado}</h2>
+                <p>Selecciona un puesto para organizar a los estudiantes.</p>
               </div>
 
               {selectedSeat && (
                 <button
                   className="view-button"
                   onClick={() =>
-                    alert(`Seleccionaste el puesto ${selectedSeat}`)
+                    alert(`Seleccionaste el puesto ${selectedSeat} para ${cursoSeleccionado}`)
                   }
                 >
                   Confirmar puesto
                 </button>
               )}
-
             </div>
 
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fit, minmax(80px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
                 gap: "15px",
                 marginTop: "30px",
               }}
             >
-
               {seats.map((seat) => (
                 <button
                   key={seat}
@@ -113,15 +98,10 @@ function AsientosPage() {
                   {seat}
                 </button>
               ))}
-
             </div>
-
           </section>
-
         </main>
-
       </div>
-
     </div>
   );
 }
