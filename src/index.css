@@ -52,10 +52,13 @@ button, input { font: inherit; }
 .course-label { color:#70828e; font-size:10px; font-weight:700; letter-spacing:1.5px; }.course-card h3{margin:4px 0 0;font-size:19px}
 .parallelos-title { margin-bottom:10px; color:#8c9ca6; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
 .parallelos-list { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
-.paralelo-button { padding:11px 8px; border:1px solid rgba(255,255,255,.09); border-radius:10px; background:#0c2231; color:#fff; cursor:pointer; text-align:center; transition:.2s; }
-.paralelo-button:hover { background:#d6aa52; border-color:#d6aa52; color:#081521; }
-.paralelo-button span { display:block; font-size:18px; font-weight:800; }.paralelo-button small{display:block;margin-top:3px;color:#7e909a;font-size:10px}.paralelo-button:hover small{color:#081521}
+.paralelo-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px; border:1px solid rgba(255,255,255,.09); border-radius:10px; background:#0c2231; }
+.paralelo-info { min-width:0; }
+.paralelo-info span { display:block; font-size:18px; font-weight:800; color:#fff; }
+.paralelo-info small { display:block; margin-top:3px; color:#7e909a; font-size:10px; white-space:nowrap; }
+.paralelo-view-button { padding:7px 10px; border:1px solid rgba(214,170,82,.5); border-radius:7px; background:rgba(214,170,82,.12); color:#e1bd70; cursor:pointer; font-size:12px; font-weight:700; transition:.2s; }
+.paralelo-view-button:hover { background:#d6aa52; border-color:#d6aa52; color:#081521; }
 .courses-empty { grid-column:1/-1; padding:55px 20px; text-align:center; color:#82939e; }.courses-empty div{font-size:30px;color:#d6aa52}.courses-empty h3{margin:12px 0 5px;color:#dbe2e6}.courses-empty p{margin:0;font-size:13px}
 
 @media(max-width:900px){.dashboard-body{grid-template-columns:80px 1fr}.sidebar-title,.sidebar-link{font-size:0}.sidebar-icon{width:100%;font-size:20px}.sidebar-footer{display:none}.sidebar-link{justify-content:center;padding:15px 5px}.courses-page{padding:30px 24px}.courses-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.app-header__brand{font-size:16px}.app-header__user div{display:none}.dashboard-body{grid-template-columns:1fr}.sidebar{display:none}.courses-page{padding:25px 16px}.courses-topbar{align-items:flex-start;flex-direction:column}.courses-topbar h1{font-size:32px}.courses-total-card{align-self:stretch;justify-content:center}.courses-search-title{align-items:flex-start;flex-direction:column}.courses-grid{padding:14px}.parallelos-list{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.app-header__brand{font-size:16px}.app-header__user div{display:none}.dashboard-body{grid-template-columns:1fr}.sidebar{display:none}.courses-page{padding:25px 16px}.courses-topbar{align-items:flex-start;flex-direction:column}.courses-topbar h1{font-size:32px}.courses-total-card{align-self:stretch;justify-content:center}.courses-search-title{align-items:flex-start;flex-direction:column}.courses-grid{padding:14px}.parallelos-list{grid-template-columns:repeat(3,1fr)}.paralelo-item{flex-direction:column;align-items:stretch}.paralelo-view-button{width:100%}}
