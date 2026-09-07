@@ -19,7 +19,7 @@ function CursosPage() {
     { nivel: "6to", paralelos: ["A", "B", "C"] },
   ];
 
-  const totalCursos = cursos.reduce((total, curso) => total + curso.paralelos.length, 0);
+  const totalCursos = cursos.length;
   const filteredCursos = useMemo(() => {
     const search = searchCourse.trim().toLowerCase();
     if (!search) return cursos;
@@ -37,6 +37,10 @@ function CursosPage() {
   const handleLogout = () => {
     authRepository.logout();
     navigate("/login", { replace: true });
+  };
+
+  const handleViewSeats = (nivel: string, paralelo: string) => {
+    navigate(`/asientos?curso=${encodeURIComponent(`${nivel} ${paralelo}`)}`);
   };
 
   if (!user) return null;
@@ -105,15 +109,19 @@ function CursosPage() {
                       <div className="parallelos-title">Paralelos</div>
                       <div className="parallelos-list">
                         {curso.paralelos.map((paralelo) => (
-                          <button
-                            type="button"
-                            className="paralelo-button"
-                            key={`${curso.nivel}-${paralelo}`}
-                            onClick={() => alert(`Seleccionaste ${curso.nivel} de Secundaria ${paralelo}`)}
-                          >
-                            <span>{paralelo}</span>
-                            <small>{curso.nivel} {paralelo}</small>
-                          </button>
+                          <div className="paralelo-item" key={`${curso.nivel}-${paralelo}`}>
+                            <div className="paralelo-info">
+                              <span>{paralelo}</span>
+                              <small>{curso.nivel} {paralelo}</small>
+                            </div>
+                            <button
+                              type="button"
+                              className="paralelo-view-button"
+                              onClick={() => handleViewSeats(curso.nivel, paralelo)}
+                            >
+                              Ver
+                            </button>
+                          </div>
                         ))}
                       </div>
                     </article>
