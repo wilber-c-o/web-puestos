@@ -5,8 +5,8 @@ const navigationItems = [
   { icon: "♙", label: "Estudiantes", path: "/estudiantes" },
   { icon: "▣", label: "Cursos", path: "/cursos" },
   { icon: "♧", label: "Asientos", path: "/asientos" },
-  { icon: "▤", label: "Asignaciones", path: "/asignaciones" },
-  { icon: "⚙", label: "Configuración", path: "/configuracion" },
+  { icon: "♙", label: "Tutores", path: "/tutores" },
+  { icon: "▤", label: "Historial", path: "/historial" },
 ];
 
 function NavigationBar() {
