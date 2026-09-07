@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
 const navigationItems = [
-  { icon: "⌂", label: "Vista general", path: "/" },
+  { icon: "⌂", label: "Inicio", path: "/" },
   { icon: "♙", label: "Estudiantes", path: "/estudiantes" },
   { icon: "▣", label: "Cursos", path: "/cursos" },
   { icon: "♧", label: "Asientos", path: "/asientos" },
