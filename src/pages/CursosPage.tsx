@@ -31,7 +31,11 @@ function CursosPage() {
           `${curso.nivel} ${paralelo}`.toLowerCase().includes(search)
         ),
       }))
-      .filter((curso) => curso.nivel.toLowerCase().includes(search) || curso.paralelos.length > 0);
+      .filter(
+        (curso) =>
+          curso.nivel.toLowerCase().includes(search) ||
+          curso.paralelos.length > 0
+      );
   }, [searchCourse]);
 
   const handleLogout = () => {
@@ -39,8 +43,9 @@ function CursosPage() {
     navigate("/login", { replace: true });
   };
 
-  const handleViewSeats = (nivel: string, paralelo: string) => {
-    navigate(`/asientos?curso=${encodeURIComponent(`${nivel} ${paralelo}`)}`);
+  const handleViewSeats = (nivel: string, paralelo?: string) => {
+    const curso = paralelo ? `${nivel} ${paralelo}` : nivel;
+    navigate(`/asientos?curso=${encodeURIComponent(curso)}`);
   };
 
   if (!user) return null;
@@ -91,15 +96,32 @@ function CursosPage() {
                   <p className="eyebrow">REGISTRO ACADÉMICO</p>
                   <h2>Cursos registrados</h2>
                 </div>
-                <span className="courses-level-count">{filteredCursos.length} niveles</span>
+                <span className="courses-level-count">
+                  {filteredCursos.length} niveles
+                </span>
               </div>
 
               <div className="courses-grid">
                 {filteredCursos.length > 0 ? (
                   filteredCursos.map((curso, index) => (
-                    <article className="course-card" key={curso.nivel}>
+                    <article
+                      className="course-card"
+                      key={curso.nivel}
+                      onClick={() => handleViewSeats(curso.nivel)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          handleViewSeats(curso.nivel);
+                        }
+                      }}
+                      title={`Ver asientos de ${curso.nivel}`}
+                    >
                       <div className="course-card-top">
-                        <div className="course-number">{String(index + 1).padStart(2, "0")}</div>
+                        <div className="course-number">
+                          {String(index + 1).padStart(2, "0")}
+                        </div>
                         <div>
                           <span className="course-label">NIVEL</span>
                           <h3>{curso.nivel} de Secundaria</h3>
@@ -109,15 +131,23 @@ function CursosPage() {
                       <div className="parallelos-title">Paralelos</div>
                       <div className="parallelos-list">
                         {curso.paralelos.map((paralelo) => (
-                          <div className="paralelo-item" key={`${curso.nivel}-${paralelo}`}>
+                          <div
+                            className="paralelo-item"
+                            key={`${curso.nivel}-${paralelo}`}
+                          >
                             <div className="paralelo-info">
                               <span>{paralelo}</span>
-                              <small>{curso.nivel} {paralelo}</small>
+                              <small>
+                                {curso.nivel} {paralelo}
+                              </small>
                             </div>
                             <button
                               type="button"
                               className="paralelo-view-button"
-                              onClick={() => handleViewSeats(curso.nivel, paralelo)}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                handleViewSeats(curso.nivel, paralelo);
+                              }}
                             >
                               Ver
                             </button>
