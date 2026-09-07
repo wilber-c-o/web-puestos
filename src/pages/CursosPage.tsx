@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/layout/Header";
@@ -7,6 +8,31 @@ import { authRepository } from "../repositories/authRepository";
 function CursosPage() {
   const navigate = useNavigate();
   const user = authRepository.getCurrentUser();
+  const [searchCourse, setSearchCourse] = useState("");
+
+  const cursos = [
+    { nivel: "1ro", paralelos: ["A", "B", "C"] },
+    { nivel: "2do", paralelos: ["A", "B", "C"] },
+    { nivel: "3ro", paralelos: ["A", "B", "C"] },
+    { nivel: "4to", paralelos: ["A", "B", "C"] },
+    { nivel: "5to", paralelos: ["A", "B", "C"] },
+    { nivel: "6to", paralelos: ["A", "B", "C"] },
+  ];
+
+  const totalCursos = cursos.reduce((total, curso) => total + curso.paralelos.length, 0);
+  const filteredCursos = useMemo(() => {
+    const search = searchCourse.trim().toLowerCase();
+    if (!search) return cursos;
+
+    return cursos
+      .map((curso) => ({
+        ...curso,
+        paralelos: curso.paralelos.filter((paralelo) =>
+          `${curso.nivel} ${paralelo}`.toLowerCase().includes(search)
+        ),
+      }))
+      .filter((curso) => curso.nivel.toLowerCase().includes(search) || curso.paralelos.length > 0);
+  }, [searchCourse]);
 
   const handleLogout = () => {
     authRepository.logout();
@@ -15,67 +41,93 @@ function CursosPage() {
 
   if (!user) return null;
 
-  const cursos = [
-    "1° de Secundaria A",
-    "1° de Secundaria B",
-    "2° de Secundaria A",
-    "2° de Secundaria B",
-  ];
-
   return (
     <div className="dashboard">
       <Header user={user} onLogout={handleLogout} />
       <div className="dashboard-body">
         <NavigationBar />
+
         <main className="dashboard-content">
-          <section className="dashboard-hero">
-            <div className="hero-text">
-              <p className="eyebrow">ORGANIZACIÓN ACADÉMICA</p>
-              <h1>
-                Mis
-                <br />
-                <span>Cursos</span>
-              </h1>
-              <p className="dashboard-description">
-                Consulta y organiza los cursos disponibles para gestionar sus
-                estudiantes y puestos de manera sencilla.
-              </p>
-            </div>
-            <div className="hero-message">
-              <span>ORDEN</span>
-              <span>FORMACIÓN</span>
-              <span>DISCIPLINA</span>
-              <div className="hero-line" />
-            </div>
-          </section>
-
-          <section className="info-panel cursos-panel">
-            <div className="panel-heading">
+          <div className="courses-page">
+            <div className="courses-topbar">
               <div>
-                <p className="eyebrow">Cursos disponibles</p>
-                <h2>Selecciona un curso</h2>
+                <p className="eyebrow">ORGANIZACIÓN ACADÉMICA</p>
+                <h1>Cursos</h1>
               </div>
-              <span className="panel-count">{cursos.length} cursos</span>
+
+              <div className="courses-total-card">
+                <span className="courses-total-number">{totalCursos}</span>
+                <span>cursos</span>
+              </div>
             </div>
 
-            <div className="classroom-list">
-              {cursos.map((curso, index) => (
-                <button
-                  key={curso}
-                  type="button"
-                  className="classroom-item curso-item"
-                  onClick={() => alert(`Seleccionaste: ${curso}`)}
-                >
-                  <div className="classroom-icon">{String(index + 1).padStart(2, "0")}</div>
-                  <div>
-                    <strong>Curso {index + 1}</strong>
-                    <span>{curso}</span>
+            <section className="courses-search-panel">
+              <div className="courses-search-title">
+                <div>
+                  <h2>Buscar curso</h2>
+                  <p>Encuentra rápidamente un curso o paralelo.</p>
+                </div>
+                <span>{totalCursos} registrados</span>
+              </div>
+
+              <div className="courses-search-box">
+                <span>⌕</span>
+                <input
+                  type="text"
+                  placeholder="Buscar por curso o paralelo..."
+                  value={searchCourse}
+                  onChange={(event) => setSearchCourse(event.target.value)}
+                />
+              </div>
+            </section>
+
+            <section className="courses-list-panel">
+              <div className="courses-list-header">
+                <div>
+                  <p className="eyebrow">REGISTRO ACADÉMICO</p>
+                  <h2>Cursos registrados</h2>
+                </div>
+                <span className="courses-level-count">{filteredCursos.length} niveles</span>
+              </div>
+
+              <div className="courses-grid">
+                {filteredCursos.length > 0 ? (
+                  filteredCursos.map((curso, index) => (
+                    <article className="course-card" key={curso.nivel}>
+                      <div className="course-card-top">
+                        <div className="course-number">{String(index + 1).padStart(2, "0")}</div>
+                        <div>
+                          <span className="course-label">NIVEL</span>
+                          <h3>{curso.nivel} de Secundaria</h3>
+                        </div>
+                      </div>
+
+                      <div className="parallelos-title">Paralelos</div>
+                      <div className="parallelos-list">
+                        {curso.paralelos.map((paralelo) => (
+                          <button
+                            type="button"
+                            className="paralelo-button"
+                            key={`${curso.nivel}-${paralelo}`}
+                            onClick={() => alert(`Seleccionaste ${curso.nivel} de Secundaria ${paralelo}`)}
+                          >
+                            <span>{paralelo}</span>
+                            <small>{curso.nivel} {paralelo}</small>
+                          </button>
+                        ))}
+                      </div>
+                    </article>
+                  ))
+                ) : (
+                  <div className="courses-empty">
+                    <div>⌕</div>
+                    <h3>No se encontraron cursos</h3>
+                    <p>Prueba con otro nombre o paralelo.</p>
                   </div>
-                  <span className="item-arrow">→</span>
-                </button>
-              ))}
-            </div>
-          </section>
+                )}
+              </div>
+            </section>
+          </div>
         </main>
       </div>
     </div>
