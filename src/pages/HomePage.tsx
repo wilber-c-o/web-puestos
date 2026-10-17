@@ -31,9 +31,12 @@ function HomePage() {
     { icon: "▤", title: "Historial", description: "Consulta cambios y actividades.", path: "/historial", className: "main-option-blue", adminOnly: true },
   ];
 
-  const visibleButtons = panelButtons.filter(
-    (button) => !button.adminOnly || user.role === "ADMIN"
-  );
+  const visibleButtons = panelButtons.filter((button) => {
+    if (user.role === "ADMIN") {
+      return ["Inicio", "Cursos", "Asientos"].includes(button.title);
+    }
+    return !button.adminOnly;
+  });
 
   return (
     <div className="dashboard">
