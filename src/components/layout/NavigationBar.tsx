@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { authRepository } from "../../repositories/authRepository";
 
-const navigationItems = [
+const navigationItems: { icon: string; label: string; path: string; adminOnly?: boolean }[] = [
   { icon: "⌂", label: "Inicio", path: "/" },
   { icon: "♙", label: "Estudiantes", path: "/estudiantes", adminOnly: true },
   { icon: "▣", label: "Cursos", path: "/cursos" },
