@@ -54,6 +54,18 @@ function HomePage() {
                 <span className="section-label">GESTIÓN ESCOLAR</span>
               </div>
 
+              <div className="summary-grid">
+                {summaryCards.map((card) => (
+                  <article className={`summary-card summary-card--${card.tone}`} key={card.label}>
+                    <div className="summary-card__icon" aria-hidden="true">
+                      <span className={`icon icon--${card.icon}`} />
+                    </div>
+                    <p>{card.label}</p>
+                    <strong>{card.value}</strong>
+                    <small>{card.detail}</small>
+
+                  </article>
+
               <div className="main-options">
                 {panelButtons.filter((button) => !button.adminOnly || user.role === "ADMIN").map((button) => (
                   <button
@@ -66,6 +78,7 @@ function HomePage() {
                     <div><h3>{button.title}</h3><p>{button.description}</p></div>
                     <span className="option-arrow">→</span>
                   </button>
+
                 ))}
               </div>
             </section>
