@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
 import { authRepository } from "../repositories/authRepository";
@@ -13,13 +13,7 @@ function HomePage() {
     navigate("/login", { replace: true });
   };
 
-  if (!user) {
-    return (
-      <main className="home-content">
-        <p>No existe una sesión activa.</p>
-      </main>
-    );
-  }
+  if (!user) return <Navigate to="/login" replace />;
 
   const panelButtons: {
     icon: string;
