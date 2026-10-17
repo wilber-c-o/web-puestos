@@ -13,14 +13,14 @@ const cursos = [
   { curso: "2do C", profesorGuia: "Ibert Veizaga" },
   { curso: "3ro A", profesorGuia: "Ignacio Escobar" },
   { curso: "3ro B", profesorGuia: "Gisela Espindola" },
-  { curso: "3ro C", profesorGuia: "Por asignar" },
   { curso: "4to A", profesorGuia: "Erick Palacios" },
   { curso: "4to B", profesorGuia: "Norian Campos" },
-  { curso: "4to C", profesorGuia: "Por asignar" },
   { curso: "5to A", profesorGuia: "Ariel Cervantes" },
   { curso: "5to B", profesorGuia: "Laura Flores" },
-  { curso: "5to C", profesorGuia: "Por asignar" },
-  { curso: "6to A", profesorGuia: "Por asignar" },
+  { curso: "5to C", profesorGuia: "Jhissel Colque" },
+  { curso: "6to A", profesorGuia: "Ronal Gutierrez" },
+  { curso: "6to B", profesorGuia: "Roxana Nuñez" },
+  { curso: "6to C", profesorGuia: "Jose Pastrana" },
 ];
 
 function CursosPage() {
