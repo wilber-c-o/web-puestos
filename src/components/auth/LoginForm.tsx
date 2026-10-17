@@ -11,7 +11,7 @@ interface LoginFormProps {
 }
 
 function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps) {
-  const [username, setCarnet] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const isAdmin = role === "ADMIN";
@@ -21,11 +21,11 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
 
     if (isLoading) return;
 
-    const normalizedCarnet = username.trim();
-    if (!normalizedCarnet || !password) return;
+    const normalizedUsername = username.trim();
+    if (!normalizedUsername || !password) return;
 
     onSubmit({
-      username: normalizedCarnet,
+      carnet: normalizedUsername,
       password,
       role,
     });
@@ -54,8 +54,8 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
             name="username"
             type="text"
             value={username}
-            onChange={(event) => setCarnet(event.target.value)}
-            placeholder="Ingresa tu username"
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Ingresa tu usuario"
             autoComplete="username"
             required
           />
