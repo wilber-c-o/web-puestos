@@ -1,60 +1,45 @@
 import { useState } from "react";
 import type { FormEventHandler } from "react";
 
-import type { LoginCredentials } from "../../types/auth";
+import type { LoginCredentials, UserRole } from "../../types/auth";
 
 interface LoginFormProps {
+  role: UserRole;
   error?: string;
   isLoading?: boolean;
   onSubmit: (credentials: LoginCredentials) => void;
 }
 
-function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
+function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps) {
   const [carnet, setCarnet] = useState("");
   const [password, setPassword] = useState("");
+
+  const isAdmin = role === "ADMIN";
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-    if (isLoading) {
-      return;
-    }
+    if (isLoading) return;
 
     const normalizedCarnet = carnet.trim();
-
-    if (!normalizedCarnet || !password) {
-      return;
-    }
+    if (!normalizedCarnet || !password) return;
 
     onSubmit({
       carnet: normalizedCarnet,
       password,
-    });
-  };
-
-  const handleTestAccess = () => {
-    if (isLoading) {
-      return;
-    }
-
-    setCarnet("13938140");
-    setPassword("123");
-    onSubmit({
-      carnet: "13938140",
-      password: "123",
+      role,
     });
   };
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
-
       <div className="login-form__heading">
-        <p className="eyebrow">Colegio Don Bosco</p>
-
+        <p className="eyebrow">{isAdmin ? "ACCESO DE PROFESOR GUÍA" : "ACCESO DOCENTE"}</p>
         <h2>Iniciar sesión</h2>
-
         <p>
-          Ingresa tus credenciales para continuar.
+          {isAdmin
+            ? "Ingresa para organizar los puestos de tu curso."
+            : "Ingresa para consultar los puestos de los estudiantes."}
         </p>
       </div>
 
@@ -63,7 +48,6 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
           <label htmlFor="carnet">Carnet de identidad</label>
           <span>Acceso institucional</span>
         </div>
-
         <div className="form-field__input-wrap">
           <input
             id="carnet"
@@ -79,10 +63,7 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
       </div>
 
       <div className="form-field">
-        <label htmlFor="password">
-          Contraseña
-        </label>
-
+        <label htmlFor="password">Contraseña</label>
         <div className="form-field__input-wrap">
           <input
             id="password"
@@ -110,13 +91,10 @@ function LoginForm({ error, isLoading = false, onSubmit }: LoginFormProps) {
         aria-busy={isLoading}
       >
         <span className="login-form__submit-text">
-          {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+          {isLoading ? "Iniciando sesión..." : isAdmin ? "Entrar como administrador" : "Entrar como usuario"}
         </span>
         <span aria-hidden="true">→</span>
       </button>
-
-
-
     </form>
   );
 }
