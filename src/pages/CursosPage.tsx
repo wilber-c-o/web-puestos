@@ -1,168 +1,80 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
 import { authRepository } from "../repositories/authRepository";
+
+const cursos = [
+  { curso: "1ro A", profesorGuia: "Alvaro Perez" },
+  { curso: "1ro B", profesorGuia: "Mildred Cardozo" },
+  { curso: "1ro C", profesorGuia: "Pablo Avila" },
+  { curso: "2do A", profesorGuia: "Jose Jancko" },
+  { curso: "2do B", profesorGuia: "Fabiola Bueno" },
+  { curso: "2do C", profesorGuia: "Ibert Veizaga" },
+  { curso: "3ro A", profesorGuia: "Ignacio Escobar" },
+  { curso: "3ro B", profesorGuia: "Gisela Espindola" },
+  { curso: "3ro C", profesorGuia: "Por asignar" },
+  { curso: "4to A", profesorGuia: "Erick Palacios" },
+  { curso: "4to B", profesorGuia: "Norian Campos" },
+  { curso: "4to C", profesorGuia: "Por asignar" },
+  { curso: "5to A", profesorGuia: "Ariel Cervantes" },
+  { curso: "5to B", profesorGuia: "Laura Flores" },
+  { curso: "5to C", profesorGuia: "Por asignar" },
+  { curso: "6to A", profesorGuia: "Por asignar" },
+];
 
 function CursosPage() {
   const navigate = useNavigate();
   const user = authRepository.getCurrentUser();
   const [searchCourse, setSearchCourse] = useState("");
-
-  const cursos = [
-    { nivel: "1ro", paralelos: ["A", "B", "C"] },
-    { nivel: "2do", paralelos: ["A", "B", "C"] },
-    { nivel: "3ro", paralelos: ["A", "B", "C"] },
-    { nivel: "4to", paralelos: ["A", "B", "C"] },
-    { nivel: "5to", paralelos: ["A", "B", "C"] },
-    { nivel: "6to", paralelos: ["A", "B", "C"] },
-  ];
-
-  const totalCursos = cursos.length;
-  const filteredCursos = useMemo(() => {
+  const visibleCursos = useMemo(() => {
     const search = searchCourse.trim().toLowerCase();
-    if (!search) return cursos;
-
-    return cursos
-      .map((curso) => ({
-        ...curso,
-        paralelos: curso.paralelos.filter((paralelo) =>
-          `${curso.nivel} ${paralelo}`.toLowerCase().includes(search)
-        ),
-      }))
-      .filter(
-        (curso) =>
-          curso.nivel.toLowerCase().includes(search) ||
-          curso.paralelos.length > 0
-      );
+    return cursos.filter(({ curso, profesorGuia }) =>
+      !search || curso.toLowerCase().includes(search) || profesorGuia.toLowerCase().includes(search)
+    );
   }, [searchCourse]);
 
   const handleLogout = () => {
     authRepository.logout();
     navigate("/login", { replace: true });
   };
-
-  const handleViewSeats = (nivel: string, paralelo?: string) => {
-    const curso = paralelo ? `${nivel} ${paralelo}` : nivel;
-    navigate(`/asientos?curso=${encodeURIComponent(curso)}`);
-  };
-
   if (!user) return null;
+
+  const cursosPermitidos = user.role === "ADMIN" && user.curso && user.curso !== "TODOS"
+    ? cursos.filter(({ curso }) => curso === user.curso)
+    : visibleCursos;
 
   return (
     <div className="dashboard">
       <Header user={user} onLogout={handleLogout} />
       <div className="dashboard-body">
         <NavigationBar />
-
         <main className="dashboard-content">
           <div className="courses-page">
             <div className="courses-topbar">
-              <div>
-                <p className="eyebrow">ORGANIZACIÓN ACADÉMICA</p>
-                <h1>Cursos</h1>
+              <div><p className="eyebrow">ORGANIZACIÓN ACADÉMICA</p><h1>Cursos</h1>
+                <p>{user.role === "ADMIN" && user.curso !== "TODOS" ? `Curso asignado: ${user.curso}` : "Cursos de secundaria · Turno mañana"}</p>
               </div>
-
-              <div className="courses-total-card">
-                <span className="courses-total-number">{totalCursos}</span>
-                <span>cursos</span>
-              </div>
+              <div className="courses-total-card"><span className="courses-total-number">{cursosPermitidos.length}</span><span>cursos visibles</span></div>
             </div>
-
-            <section className="courses-search-panel">
-              <div className="courses-search-title">
-                <div>
-                  <h2>Buscar curso</h2>
-                  <p>Encuentra rápidamente un curso o paralelo.</p>
-                </div>
-                <span>{totalCursos} registrados</span>
-              </div>
-
-              <div className="courses-search-box">
-                <span>⌕</span>
-                <input
-                  type="text"
-                  placeholder="Buscar por curso o paralelo..."
-                  value={searchCourse}
-                  onChange={(event) => setSearchCourse(event.target.value)}
-                />
-              </div>
-            </section>
-
+            {!(user.role === "ADMIN" && user.curso && user.curso !== "TODOS") && (
+              <section className="courses-search-panel">
+                <div className="courses-search-title"><div><h2>Buscar curso</h2><p>Busca por curso o nombre del profesor guía.</p></div><span>{cursos.length} cursos</span></div>
+                <div className="courses-search-box"><span>⌕</span><input value={searchCourse} onChange={(event) => setSearchCourse(event.target.value)} placeholder="Ej.: 1ro A o Alvaro Perez" /></div>
+              </section>
+            )}
             <section className="courses-list-panel">
-              <div className="courses-list-header">
-                <div>
-                  <p className="eyebrow">REGISTRO ACADÉMICO</p>
-                  <h2>Cursos registrados</h2>
-                </div>
-                <span className="courses-level-count">
-                  {filteredCursos.length} niveles
-                </span>
-              </div>
-
+              <div className="courses-list-header"><div><p className="eyebrow">REGISTRO ACADÉMICO</p><h2>Cursos y profesores guía</h2></div><span className="courses-level-count">{cursosPermitidos.length} cursos</span></div>
               <div className="courses-grid">
-                {filteredCursos.length > 0 ? (
-                  filteredCursos.map((curso, index) => (
-                    <article
-                      className="course-card"
-                      key={curso.nivel}
-                      onClick={() => handleViewSeats(curso.nivel)}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          handleViewSeats(curso.nivel);
-                        }
-                      }}
-                      title={`Ver asientos de ${curso.nivel}`}
-                    >
-                      <div className="course-card-top">
-                        <div className="course-number">
-                          {String(index + 1).padStart(2, "0")}
-                        </div>
-                        <div>
-                          <span className="course-label">NIVEL</span>
-                          <h3>{curso.nivel} de Secundaria</h3>
-                        </div>
-                      </div>
-
-                      <div className="parallelos-title">Paralelos</div>
-                      <div className="parallelos-list">
-                        {curso.paralelos.map((paralelo) => (
-                          <div
-                            className="paralelo-item"
-                            key={`${curso.nivel}-${paralelo}`}
-                          >
-                            <div className="paralelo-info">
-                              <span>{paralelo}</span>
-                              <small>
-                                {curso.nivel} {paralelo}
-                              </small>
-                            </div>
-                            <button
-                              type="button"
-                              className="paralelo-view-button"
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                handleViewSeats(curso.nivel, paralelo);
-                              }}
-                            >
-                              Ver
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    </article>
-                  ))
-                ) : (
-                  <div className="courses-empty">
-                    <div>⌕</div>
-                    <h3>No se encontraron cursos</h3>
-                    <p>Prueba con otro nombre o paralelo.</p>
-                  </div>
-                )}
+                {cursosPermitidos.filter(({curso,profesorGuia}) => {const s=searchCourse.trim().toLowerCase();return (user.role==="ADMIN"&&user.curso&&user.curso!=="TODOS")||!s||curso.toLowerCase().includes(s)||profesorGuia.toLowerCase().includes(s)}).map(({curso,profesorGuia}) => (
+                  <article className="course-card" key={curso}>
+                    <div className="course-card-top"><div className="course-number">{curso.split(" ")[0]}</div><div><span className="course-label">CURSO</span><h3>{curso}</h3></div></div>
+                    <div className="parallelos-title">Profesor guía</div>
+                    <div className="paralelo-item"><div className="paralelo-info"><strong>{profesorGuia}</strong><small>{profesorGuia === "Por asignar" ? "Pendiente de registro" : "Profesor guía del curso"}</small></div>
+                      <button type="button" className="paralelo-view-button" onClick={() => navigate(`/asientos?curso=${encodeURIComponent(curso)}`)}>Ver</button>
+                    </div>
+                  </article>
+                ))}
               </div>
             </section>
           </div>
@@ -171,5 +83,4 @@ function CursosPage() {
     </div>
   );
 }
-
 export default CursosPage;
