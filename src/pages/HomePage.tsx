@@ -1,85 +1,57 @@
 import { useNavigate } from "react-router-dom";
-
-
 import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
 import { authRepository } from "../repositories/authRepository";
 import "./HomePage.css";
 
-
-const summaryCards = [
-  {
-    label: "Estudiantes registrados",
-    value: "128",
-    detail: "12 incorporados este mes",
-    icon: "people",
-    tone: "gold",
-  },
-  {
-    label: "Clases activas",
-    value: "8",
-    detail: "En jornada actualmente",
-    icon: "book",
-    tone: "blue",
-  },
-  {
-    label: "Asientos ocupados",
-    value: "46",
-    detail: "De 60 disponibles",
-    icon: "seat",
-    tone: "terracotta",
-  },
-  {
-    label: "Asientos libres",
-    value: "14",
-    detail: "Disponibles para asignar",
-    icon: "chair",
-    tone: "green",
-  },
-];
-
-
 function HomePage() {
   const navigate = useNavigate();
   const user = authRepository.getCurrentUser();
-
 
   const handleLogout = () => {
     authRepository.logout();
     navigate("/login", { replace: true });
   };
 
+  if (!user) return <main className="home-content"><p>No existe una sesión activa.</p></main>;
+
+  const panelButtons: { icon: string; title: string; description: string; path: string; className: string; adminOnly?: boolean }[] = [
+    { icon: "⌂", title: "Inicio", description: "Panel principal del sistema.", path: "/", className: "main-option-yellow" },
+    { icon: "♙", title: "Estudiantes", description: "Registra y consulta estudiantes.", path: "/estudiantes", className: "main-option-blue", adminOnly: true },
+    { icon: "▣", title: "Cursos", description: "Administra cursos y aulas.", path: "/cursos", className: "main-option-green" },
+    { icon: "♧", title: "Asientos", description: "Organiza los puestos de cada aula.", path: "/asientos", className: "main-option-purple" },
+    { icon: "♙", title: "Tutores", description: "Gestiona los tutores del colegio.", path: "/tutores", className: "main-option-yellow", adminOnly: true },
+    { icon: "▤", title: "Historial", description: "Consulta cambios y actividades.", path: "/historial", className: "main-option-blue", adminOnly: true },
+  ];
 
   return (
-    <div className="app-shell">
-      {user ? (
-        <>
-          <Header user={user} onLogout={handleLogout} />
-          <NavigationBar />
-          <main className="home-content">
-            <section className="home-hero" aria-labelledby="home-title">
-              <div>
-                <p className="eyebrow">Panel de control</p>
-                <h1 id="home-title">Todo listo para organizar tu jornada.</h1>
-                <p className="home-content__description">
-                  Consulta el estado de los puestos y administra la información de
-                  estudiantes desde un solo lugar.
+    <div className="dashboard">
+      <Header user={user} onLogout={handleLogout} />
+      <div className="dashboard-body">
+        <NavigationBar />
+        <main className="dashboard-content">
+          <div className="content-container">
+            <section className="dashboard-hero">
+              <div className="hero-glow" />
+              <div className="hero-text">
+                <div className="hero-kicker"><span className="kicker-dot" /> PANEL PRINCIPAL</div>
+                <p className="eyebrow">COLEGIO DON BOSCO</p>
+                <h1>Bienvenido a <span>Inicio</span></h1>
+                <p className="dashboard-description">
+                  Hola, <strong>{user.name}</strong>. Desde aquí puedes acceder rápidamente a todas las opciones del panel de control.
                 </p>
               </div>
-              <div className="home-date" aria-label="Fecha de hoy">
-                <span>Hoy</span>
-                <strong>18</strong>
-                <small>junio, 2025</small>
+              <div className="hero-visual" aria-hidden="true">
+                <div className="hero-ring ring-one" /><div className="hero-ring ring-two" />
+                <div className="hero-emblem"><strong>DB</strong><span>DON BOSCO</span></div>
+                <div className="hero-pill pill-top">ORDEN</div><div className="hero-pill pill-bottom">DISCIPLINA</div>
               </div>
             </section>
 
-            <section aria-labelledby="summary-title">
+            <section className="quick-section">
               <div className="section-heading">
-                <div>
-                  <p className="eyebrow">Vista general</p>
-                  <h2 id="summary-title">Resumen del día</h2>
-                </div>
-                <span className="status-pill"><i /> Sistema actualizado</span>
+                <div><p className="eyebrow">Panel de control</p><h2>Accesos rápidos</h2></div>
+                <span className="section-label">GESTIÓN ESCOLAR</span>
               </div>
 
               <div className="summary-grid">
@@ -93,49 +65,34 @@ function HomePage() {
                     <small>{card.detail}</small>
 
                   </article>
+
+              <div className="main-options">
+                {panelButtons.filter((button) => !button.adminOnly || user.role === "ADMIN").map((button) => (
+                  <button
+                    key={button.title}
+                    type="button"
+                    className={`main-option ${button.className}`}
+                    onClick={() => navigate(button.path)}
+                  >
+                    <div className="option-icon">{button.icon}</div>
+                    <div><h3>{button.title}</h3><p>{button.description}</p></div>
+                    <span className="option-arrow">→</span>
+                  </button>
+
                 ))}
               </div>
             </section>
 
-            <section className="home-lower-grid" aria-label="Información complementaria">
-              <article className="activity-panel">
-                <div className="section-heading">
-                  <div>
-                    <p className="eyebrow">Actividad reciente</p>
-                    <h2>Últimos movimientos</h2>
-                  </div>
-                  <button type="button" className="text-button">Ver todo <span>→</span></button>
-                </div>
-                <ul className="activity-list">
-                  <li><span className="activity-dot activity-dot--gold" /><div><strong>Nueva asignación de puesto</strong><p>Clase de Matemática · Puesto B-12</p></div><time>Hace 8 min</time></li>
-                  <li><span className="activity-dot activity-dot--blue" /><div><strong>Estudiante registrado</strong><p>María Fernanda López fue agregada al sistema</p></div><time>Hace 24 min</time></li>
-                  <li><span className="activity-dot activity-dot--green" /><div><strong>Asiento liberado</strong><p>Clase de Ciencias · Puesto A-04</p></div><time>Hace 1 h</time></li>
-                </ul>
-              </article>
-
-              <aside className="profile-panel" aria-labelledby="profile-title">
-                <p className="eyebrow">Tu perfil</p>
-                <h2 id="profile-title">Sesión actual</h2>
-                <div className="profile-panel__identity">
-                  <span>{user.name.charAt(0)}</span>
-                  <div><strong>{user.name}</strong><small>{user.role}</small></div>
-                </div>
-                <dl className="user-summary">
-                  <div><dt>Carnet</dt><dd>{user.carnet}</dd></div>
-                  <div><dt>Acceso</dt><dd>Administrador</dd></div>
-                </dl>
-              </aside>
+            <section className="don-bosco-message">
+              <div className="message-star">★</div>
+              <div><strong>Todo en un solo lugar</strong><p>Accede rápidamente a cada sección del sistema de gestión escolar.</p></div>
+              <span>ESTUDIO · TRABAJO · DISCIPLINA</span>
             </section>
-          </main>
-        </>
-      ) : (
-        <main className="home-content">
-          <p>No existe una sesión activa.</p>
+          </div>
         </main>
-      )}
+      </div>
     </div>
   );
 }
-
 
 export default HomePage;

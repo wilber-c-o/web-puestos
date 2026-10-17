@@ -1,80 +1,82 @@
 import { useState } from "react";
 import type { FormEventHandler } from "react";
-import type { LoginCredentials } from "../../types/auth";
 
+import type { LoginCredentials, UserRole } from "../../types/auth";
 
 interface LoginFormProps {
+  role: UserRole;
   error?: string;
+  isLoading?: boolean;
   onSubmit: (credentials: LoginCredentials) => void;
 }
 
-
-function LoginForm({ error, onSubmit }: LoginFormProps) {
+function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps) {
   const [carnet, setCarnet] = useState("");
   const [password, setPassword] = useState("");
 
+  const isAdmin = role === "ADMIN";
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
+    if (isLoading) return;
 
     const normalizedCarnet = carnet.trim();
-
-
-    if (!normalizedCarnet || !password) {
-      return;
-    }
-
+    if (!normalizedCarnet || !password) return;
 
     onSubmit({
       carnet: normalizedCarnet,
       password,
+      role,
     });
   };
-
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <div className="login-form__heading">
-        <p className="eyebrow">Acceso seguro</p>
-        <h2>Bienvenido de nuevo</h2>
-        <p>Ingrese sus credenciales para continuar.</p>
+        <p className="eyebrow">{isAdmin ? "ACCESO DE PROFESOR GUÍA" : "ACCESO DOCENTE"}</p>
+        <h2>Iniciar sesión</h2>
+        <p>
+          {isAdmin
+            ? "Ingresa para organizar los puestos de tu curso."
+            : "Ingresa para consultar los puestos de los estudiantes."}
+        </p>
       </div>
-
 
       <div className="form-field">
-        <label htmlFor="carnet">Carnet de identidad</label>
-
-
-        <input
-          id="carnet"
-          name="carnet"
-          type="text"
-          value={carnet}
-          onChange={(event) => setCarnet(event.target.value)}
-          placeholder="Ingrese su carnet"
-          autoComplete="username"
-          required
-        />
+        <div className="form-field__label-row">
+          <label htmlFor="carnet">Carnet de identidad</label>
+          <span>Acceso institucional</span>
+        </div>
+        <div className="form-field__input-wrap">
+          <input
+            id="carnet"
+            name="carnet"
+            type="text"
+            value={carnet}
+            onChange={(event) => setCarnet(event.target.value)}
+            placeholder="Ingresa tu carnet"
+            autoComplete="username"
+            required
+          />
+        </div>
       </div>
-
 
       <div className="form-field">
         <label htmlFor="password">Contraseña</label>
-
-
-        <input
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="Ingrese su contraseña"
-          autoComplete="current-password"
-          required
-        />
+        <div className="form-field__input-wrap">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="Ingresa tu contraseña"
+            autoComplete="current-password"
+            required
+          />
+        </div>
       </div>
-
 
       {error && (
         <p className="form-error" role="alert" aria-live="polite">
@@ -82,14 +84,19 @@ function LoginForm({ error, onSubmit }: LoginFormProps) {
         </p>
       )}
 
-
-      <button className="login-form__submit" type="submit">
-        Ingresar al sistema
+      <button
+        className="login-form__submit"
+        type="submit"
+        disabled={isLoading}
+        aria-busy={isLoading}
+      >
+        <span className="login-form__submit-text">
+          {isLoading ? "Iniciando sesión..." : isAdmin ? "Entrar como administrador" : "Entrar como usuario"}
+        </span>
         <span aria-hidden="true">→</span>
       </button>
     </form>
   );
 }
-
 
 export default LoginForm;

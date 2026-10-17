@@ -1,0 +1,113 @@
+import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+import Header from "../components/layout/Header";
+import NavigationBar from "../components/layout/NavigationBar";
+import { authRepository } from "../repositories/authRepository";
+
+function AsientosPage() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const user = authRepository.getCurrentUser();
+
+  const cursoSeleccionado = searchParams.get("curso") || "Curso sin seleccionar";
+  const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
+
+  const handleLogout = () => {
+    authRepository.logout();
+    navigate("/login", { replace: true });
+  };
+
+  if (!user) {
+    return null;
+  }
+
+  const seats = Array.from({ length: 30 }, (_, index) => index + 1);
+
+  return (
+    <div className="dashboard">
+      <Header user={user} onLogout={handleLogout} />
+
+      <div className="dashboard-body">
+        <NavigationBar />
+
+        <main className="dashboard-content">
+          <section className="dashboard-hero">
+            <div className="hero-text">
+              <p className="eyebrow">GESTIÓN DE ASIENTOS</p>
+
+              <h1>
+                Organizar
+                <br />
+                <span>Asientos</span>
+              </h1>
+
+              <p className="dashboard-description">
+                Organiza los asientos de los estudiantes del curso seleccionado.
+              </p>
+            </div>
+          </section>
+
+          <section className="info-panel">
+            <div className="panel-heading">
+              <div>
+                <p className="eyebrow">CURSO SELECCIONADO</p>
+                <h2>{cursoSeleccionado}</h2>
+                <p>{user.role === "ADMIN" ? "Selecciona un puesto para organizar a los estudiantes." : "Modo consulta: puedes revisar los puestos, pero no modificarlos."}</p>
+              </div>
+
+              {selectedSeat && user.role === "ADMIN" && (
+                <button
+                  className="view-button"
+                  onClick={() =>
+                    alert(`Seleccionaste el puesto ${selectedSeat} para ${cursoSeleccionado}`)
+                  }
+                >
+                  Confirmar puesto
+                </button>
+              )}
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
+                gap: "15px",
+                marginTop: "30px",
+              }}
+            >
+              {seats.map((seat) => (
+                <button
+                  key={seat}
+                  type="button"
+                  onClick={() => {
+                    if (user.role === "ADMIN") setSelectedSeat(seat);
+                  }}
+                  disabled={user.role !== "ADMIN"}
+                  aria-label={`Puesto ${seat}${user.role !== "ADMIN" ? ", solo lectura" : ""}`}
+                  style={{
+                    padding: "20px",
+                    borderRadius: "10px",
+                    border:
+                      selectedSeat === seat
+                        ? "3px solid #e0ad00"
+                        : "1px solid #ddd",
+                    cursor: "pointer",
+                    fontSize: "18px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  🪑
+                  <br />
+                  {seat}
+                </button>
+              ))}
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+export default AsientosPage;
