@@ -1,17 +1,22 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { authRepository } from "../../repositories/authRepository";
 
 const navigationItems = [
   { icon: "⌂", label: "Inicio", path: "/" },
-  { icon: "♙", label: "Estudiantes", path: "/estudiantes" },
+  { icon: "♙", label: "Estudiantes", path: "/estudiantes", adminOnly: true },
   { icon: "▣", label: "Cursos", path: "/cursos" },
   { icon: "♧", label: "Asientos", path: "/asientos" },
-  { icon: "♙", label: "Tutores", path: "/tutores" },
-  { icon: "▤", label: "Historial", path: "/historial" },
+  { icon: "♙", label: "Tutores", path: "/tutores", adminOnly: true },
+  { icon: "▤", label: "Historial", path: "/historial", adminOnly: true },
 ];
 
 function NavigationBar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = authRepository.getCurrentUser();
+  const visibleItems = navigationItems.filter(
+    (item) => !item.adminOnly || user?.role === "ADMIN"
+  );
 
   return (
     <aside className="sidebar">
@@ -26,7 +31,7 @@ function NavigationBar() {
       <div className="sidebar-title">PANEL DE CONTROL</div>
 
       <nav className="sidebar-navigation">
-        {navigationItems.map((item) => (
+        {visibleItems.map((item) => (
           <button
             type="button"
             className={`sidebar-link ${location.pathname === item.path ? "sidebar-link-active" : ""}`}
