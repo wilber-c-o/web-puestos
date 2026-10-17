@@ -14,9 +14,12 @@ function NavigationBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = authRepository.getCurrentUser();
-  const visibleItems = navigationItems.filter(
-    (item) => !item.adminOnly || user?.role === "ADMIN"
-  );
+  const visibleItems = navigationItems.filter((item) => {
+    if (user?.role === "ADMIN") {
+      return ["Inicio", "Cursos", "Asientos"].includes(item.label);
+    }
+    return !item.adminOnly;
+  });
 
   return (
     <aside className="sidebar">
