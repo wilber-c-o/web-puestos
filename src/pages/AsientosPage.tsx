@@ -53,10 +53,10 @@ function AsientosPage() {
               <div>
                 <p className="eyebrow">CURSO SELECCIONADO</p>
                 <h2>{cursoSeleccionado}</h2>
-                <p>Selecciona un puesto para organizar a los estudiantes.</p>
+                <p>{user.role === "ADMIN" ? "Selecciona un puesto para organizar a los estudiantes." : "Modo consulta: puedes revisar los puestos, pero no modificarlos."}</p>
               </div>
 
-              {selectedSeat && (
+              {selectedSeat && user.role === "ADMIN" && (
                 <button
                   className="view-button"
                   onClick={() =>
@@ -80,7 +80,11 @@ function AsientosPage() {
                 <button
                   key={seat}
                   type="button"
-                  onClick={() => setSelectedSeat(seat)}
+                  onClick={() => {
+                    if (user.role === "ADMIN") setSelectedSeat(seat);
+                  }}
+                  disabled={user.role !== "ADMIN"}
+                  aria-label={`Puesto ${seat}${user.role !== "ADMIN" ? ", solo lectura" : ""}`}
                   style={{
                     padding: "20px",
                     borderRadius: "10px",
