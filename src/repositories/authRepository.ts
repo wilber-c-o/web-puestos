@@ -6,26 +6,21 @@ import type {
   UserRecord,
 } from "../types/auth";
 
-
 const SESSION_KEY = "app_session";
-
-
 const users = initialUsers as UserRecord[];
-
 
 export const authRepository = {
   login(credentials: LoginCredentials): User | null {
     const foundUser = users.find(
       (user) =>
         user.carnet === credentials.carnet &&
-        user.password === credentials.password
+        user.password === credentials.password &&
+        user.role === credentials.role
     );
-
 
     if (!foundUser) {
       return null;
     }
-
 
     const sessionUser: User = {
       id: foundUser.id,
@@ -34,23 +29,17 @@ export const authRepository = {
       role: foundUser.role,
     };
 
-
     storageService.set<User>(SESSION_KEY, sessionUser);
-
-
     return sessionUser;
   },
-
 
   logout(): void {
     storageService.remove(SESSION_KEY);
   },
 
-
   getCurrentUser(): User | null {
     return storageService.get<User>(SESSION_KEY);
   },
-
 
   isAuthenticated(): boolean {
     return this.getCurrentUser() !== null;
