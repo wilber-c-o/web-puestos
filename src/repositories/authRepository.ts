@@ -27,6 +27,7 @@ export const authRepository = {
       name: foundUser.name,
       carnet: foundUser.carnet,
       role: foundUser.role,
+      ...(foundUser.curso ? { curso: foundUser.curso } : {}),
     };
 
     storageService.set<User>(SESSION_KEY, sessionUser);
