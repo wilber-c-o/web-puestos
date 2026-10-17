@@ -15,7 +15,7 @@ function HomePage() {
 
   if (!user) return <main className="home-content"><p>No existe una sesión activa.</p></main>;
 
-  const panelButtons = [
+  const panelButtons: { icon: string; title: string; description: string; path: string; className: string; adminOnly?: boolean }[] = [
     { icon: "⌂", title: "Inicio", description: "Panel principal del sistema.", path: "/", className: "main-option-yellow" },
     { icon: "♙", title: "Estudiantes", description: "Registra y consulta estudiantes.", path: "/estudiantes", className: "main-option-blue", adminOnly: true },
     { icon: "▣", title: "Cursos", description: "Administra cursos y aulas.", path: "/cursos", className: "main-option-green" },
