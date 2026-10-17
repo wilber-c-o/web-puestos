@@ -27,8 +27,8 @@ export default function LoginPage() {
     if (!user) {
       setError(
         selectedRole === "ADMIN"
-          ? "El carnet o la contraseña del administrador son incorrectos."
-          : "El carnet o la contraseña del usuario son incorrectos."
+          ? "El usuario o la contraseña del administrador son incorrectos."
+          : "El usuario o la contraseña del usuario son incorrectos."
       );
       setIsLoading(false);
       return;
