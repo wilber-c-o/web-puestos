@@ -17,11 +17,11 @@ function HomePage() {
 
   const panelButtons = [
     { icon: "⌂", title: "Inicio", description: "Panel principal del sistema.", path: "/", className: "main-option-yellow" },
-    { icon: "♙", title: "Estudiantes", description: "Registra y consulta estudiantes.", path: "/estudiantes", className: "main-option-blue" },
+    { icon: "♙", title: "Estudiantes", description: "Registra y consulta estudiantes.", path: "/estudiantes", className: "main-option-blue", adminOnly: true },
     { icon: "▣", title: "Cursos", description: "Administra cursos y aulas.", path: "/cursos", className: "main-option-green" },
     { icon: "♧", title: "Asientos", description: "Organiza los puestos de cada aula.", path: "/asientos", className: "main-option-purple" },
-    { icon: "♙", title: "Tutores", description: "Gestiona los tutores del colegio.", path: "/tutores", className: "main-option-yellow" },
-    { icon: "▤", title: "Historial", description: "Consulta cambios y actividades.", path: "/historial", className: "main-option-blue" },
+    { icon: "♙", title: "Tutores", description: "Gestiona los tutores del colegio.", path: "/tutores", className: "main-option-yellow", adminOnly: true },
+    { icon: "▤", title: "Historial", description: "Consulta cambios y actividades.", path: "/historial", className: "main-option-blue", adminOnly: true },
   ];
 
   return (
@@ -55,7 +55,7 @@ function HomePage() {
               </div>
 
               <div className="main-options">
-                {panelButtons.map((button) => (
+                {panelButtons.filter((button) => !button.adminOnly || user.role === "ADMIN").map((button) => (
                   <button
                     key={button.title}
                     type="button"
