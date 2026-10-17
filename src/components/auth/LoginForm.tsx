@@ -11,7 +11,7 @@ interface LoginFormProps {
 }
 
 function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps) {
-  const [carnet, setCarnet] = useState("");
+  const [username, setCarnet] = useState("");
   const [password, setPassword] = useState("");
 
   const isAdmin = role === "ADMIN";
@@ -21,11 +21,11 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
 
     if (isLoading) return;
 
-    const normalizedCarnet = carnet.trim();
+    const normalizedCarnet = username.trim();
     if (!normalizedCarnet || !password) return;
 
     onSubmit({
-      carnet: normalizedCarnet,
+      username: normalizedCarnet,
       password,
       role,
     });
@@ -45,17 +45,17 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
 
       <div className="form-field">
         <div className="form-field__label-row">
-          <label htmlFor="carnet">Carnet de identidad</label>
+          <label htmlFor="username">Usuario</label>
           <span>Acceso institucional</span>
         </div>
         <div className="form-field__input-wrap">
           <input
-            id="carnet"
-            name="carnet"
+            id="username"
+            name="username"
             type="text"
-            value={carnet}
+            value={username}
             onChange={(event) => setCarnet(event.target.value)}
-            placeholder="Ingresa tu carnet"
+            placeholder="Ingresa tu username"
             autoComplete="username"
             required
           />
