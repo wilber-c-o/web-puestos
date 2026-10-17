@@ -7,7 +7,6 @@ import {
 
 import type { UserRole } from "../types/auth";
 import HomePage from "../pages/HomePage";
-import StudentsPage from "../pages/StudentsPage";
 import LoginPage from "../pages/auth/LoginPage";
 import AsientosPage from "../pages/AsientosPage";
 import EstudiantesPage from "../pages/EstudiantesPage";
@@ -35,16 +34,11 @@ function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-
-        <Route path="/" element={<HomePage />} />
-        <Route path="/estudiantes" element={<StudentsPage />} />
-
-        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/asientos" element={<ProtectedRoute><AsientosPage /></ProtectedRoute>} />
-        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
         <Route path="/cursos" element={<ProtectedRoute><CursosPage /></ProtectedRoute>} />
+        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
         <Route path="/tutores" element={<ProtectedRoute roles={["ADMIN"]}><TutoresPage /></ProtectedRoute>} />
         <Route path="/historial" element={<ProtectedRoute roles={["ADMIN"]}><HistorialPage /></ProtectedRoute>} />
         {/* Compatibilidad con el enlace anterior */}
