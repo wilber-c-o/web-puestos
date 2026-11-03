@@ -72,9 +72,7 @@ function readCourses(): CourseRecord[] {
 
 export function createTeacherUsername(name: string, suffix = "DB2026"): string {
   const parts = normalize(name).split(" ").filter(Boolean);
-  const initials = parts.length > 1
-    ? (parts[0][0] + parts[parts.length - 1][0])
-    : parts[0]?.slice(0, 2);
+  const initials = parts.map((part) => part[0]).join("");
   return (initials || "PR").toLocaleUpperCase() + "_" + suffix;
 }
 
