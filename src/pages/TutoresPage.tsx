@@ -39,8 +39,19 @@ function TutoresPage() {
     refresh();
   };
   const assignGuide = (course: CourseRecord, teacherId: string) => {
+    const selectedTeacher = teachers.find((item) => item.id === teacherId);
+    const usernameCollision = selectedTeacher && courses.some((item) => {
+      if (item.id === course.id || !item.guideId) return false;
+      const otherTeacher = teachers.find((teacher) => teacher.id === item.guideId);
+      return otherTeacher && createTeacherUsername(otherTeacher.name) === createTeacherUsername(selectedTeacher.name);
+    });
     if (teacherId && courses.some((item) => item.id !== course.id && item.guideId === teacherId)) {
       setNotice("Ese profesor ya está designado como guía de otro curso.");
+      refresh();
+      return;
+    }
+    if (usernameCollision) {
+      setNotice("Las iniciales de este profesor coinciden con las de otro profesor guía. Verifica el nombre antes de asignarlo.");
       refresh();
       return;
     }
