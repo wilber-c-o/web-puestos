@@ -32,6 +32,7 @@ function HomePage() {
   ];
 
   const visibleButtons = panelButtons.filter((button) => {
+    if (user.role === "SUPER_ADMIN") return true;
     if (user.role === "ADMIN") {
       return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(button.title);
     }
