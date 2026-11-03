@@ -39,7 +39,7 @@ const initialCourseGuides = [
 ];
 
 function normalize(value: string): string {
-  return value.trim().replace(/\\s+/g, " ");
+  return value.trim().replace(/\s+/g, " ");
 }
 
 function seedTeachers(): TeacherRecord[] {
