@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
@@ -13,12 +13,10 @@ function CursosPage() {
     curso: course.name,
     profesorGuia: schoolRepository.getGuideName(course),
   }));
-  const visibleCursos = useMemo(() => {
-    const search = searchCourse.trim().toLowerCase();
-    return cursos.filter(({ curso, profesorGuia }) =>
-      !search || curso.toLowerCase().includes(search) || profesorGuia.toLowerCase().includes(search)
-    );
-  }, [searchCourse, cursos.length]);
+  const search = searchCourse.trim().toLowerCase();
+  const visibleCursos = cursos.filter(({ curso, profesorGuia }) =>
+    !search || curso.toLowerCase().includes(search) || profesorGuia.toLowerCase().includes(search)
+  );
 
   const handleLogout = () => {
     authRepository.logout();
