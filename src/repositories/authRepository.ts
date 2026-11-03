@@ -7,6 +7,15 @@ import type {
 } from "../types/auth";
 
 const SESSION_KEY = "app_session";
+
+// Cuenta inicial del director académico. Cambia estas credenciales cuando lo solicites.
+const superAdminAccount: UserRecord = {
+  id: "super-admin-director",
+  name: "Director Académico",
+  carnet: "director",
+  password: "DonBosco2026",
+  role: "SUPER_ADMIN",
+};
 const users = initialUsers as UserRecord[];
 
 // Cuentas de profesor guía con rol ADMIN que ya estaban configuradas.
@@ -76,7 +85,7 @@ const teacherAccounts: UserRecord[] = [
 
 export const authRepository = {
   login(credentials: LoginCredentials): User | null {
-    const foundUser = [...teacherAccounts, ...guideAccounts, ...users].find(
+    const foundUser = [superAdminAccount, ...teacherAccounts, ...guideAccounts, ...users].find(
       (user) =>
         user.carnet === credentials.carnet &&
         user.password === credentials.password &&
