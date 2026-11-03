@@ -53,9 +53,9 @@ function TutoresPage() {
 
   if (!user || user.role !== "SUPER_ADMIN") return null;
 
-  const fieldStyle: React.CSSProperties = { width: "100%", padding: "12px 14px", border: "1px solid #d8e2eb", borderRadius: 8, font: "inherit", color: "#173044", background: "#fff" };
-  const buttonStyle: React.CSSProperties = { padding: "11px 16px", border: 0, borderRadius: 8, background: "#173b61", color: "#fff", fontWeight: 700, cursor: "pointer" };
-  const panelStyle: React.CSSProperties = { background: "#fff", border: "1px solid #e1e9ef", borderRadius: 12, padding: 22, marginBottom: 22 };
+  const fieldStyle = { width: "100%", padding: "12px 14px", border: "1px solid #d8e2eb", borderRadius: 8, font: "inherit", color: "#173044", background: "#fff" };
+  const buttonStyle = { padding: "11px 16px", border: 0, borderRadius: 8, background: "#173b61", color: "#fff", fontWeight: 700, cursor: "pointer" };
+  const panelStyle = { background: "#fff", border: "1px solid #e1e9ef", borderRadius: 12, padding: 22, marginBottom: 22 };
 
   return (
     <div className="dashboard">
