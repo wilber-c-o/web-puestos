@@ -4,6 +4,7 @@ import Header from "../components/layout/Header";
 import NavigationBar from "../components/layout/NavigationBar";
 import { authRepository } from "../repositories/authRepository";
 import { storageService } from "../services/storageService";
+import { studentRepository } from "../repositories/studentRepository";
 
 type SeatAssignments = Record<string, Record<number, string>>;
 const ASSIGNMENTS_KEY = "don_bosco_seat_assignments";
@@ -18,7 +19,8 @@ function AsientosPage() {
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [studentName, setStudentName] = useState("");
   const [notice, setNotice] = useState("");
-  const seats = useMemo(() => Array.from({ length: 30 }, (_, index) => index + 1), []);
+  const seats = useMemo(() => Array.from({ length: 42 }, (_, index) => index + 1), []);
+  const students = useMemo(() => studentRepository.getByCourse(cursoSeleccionado), [cursoSeleccionado]);
   const courseAssignments = assignments[cursoSeleccionado] || {};
   const canEdit = user?.role === "ADMIN" && (!user.curso || user.curso === "TODOS" || user.curso === cursoSeleccionado);
 
@@ -31,6 +33,14 @@ function AsientosPage() {
     const seat = selectedSeat;
     const name = studentName.trim();
     const updated: SeatAssignments = { ...assignments, [cursoSeleccionado]: { ...courseAssignments } };
+    if (name && !students.includes(name)) {
+      setNotice("Selecciona un estudiante registrado en la lista del curso.");
+      return;
+    }
+    if (name && Object.entries(courseAssignments).some(([number, assigned]) => Number(number) !== seat && assigned === name)) {
+      setNotice("Ese estudiante ya tiene otro asiento asignado.");
+      return;
+    }
     if (name) updated[cursoSeleccionado][seat] = name;
     else delete updated[cursoSeleccionado][seat];
     setAssignments(updated);
@@ -50,16 +60,20 @@ function AsientosPage() {
         <main className="dashboard-content">
           <section className="dashboard-hero">
             <div className="hero-text"><p className="eyebrow">GESTIÓN DE ASIENTOS</p><h1>Asientos <span>{cursoSeleccionado}</span></h1>
-              <p className="dashboard-description">{canEdit ? "Selecciona un asiento, escribe el nombre del estudiante y guarda la asignación." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
+              <p className="dashboard-description">{canEdit ? "Selecciona un asiento y asigna un estudiante registrado en la lista de tu curso." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
             </div>
           </section>
           <section className="info-panel">
             <div className="panel-heading"><div><p className="eyebrow">DISTRIBUCIÓN DEL AULA</p><h2>{cursoSeleccionado}</h2><p>{Object.values(courseAssignments).filter(Boolean).length} de {seats.length} asientos ocupados</p></div></div>
             {notice && <p role="status" style={{padding:"12px",background:"#e8f7ee",color:"#17663a",borderRadius:"8px"}}>{notice}</p>}
+            {canEdit && students.length === 0 && <p style={{padding:"14px",background:"#fff8e6",borderRadius:"8px",color:"#765500"}}>Primero registra estudiantes en la sección Estudiantes de {cursoSeleccionado}. Luego podrás asignarlos a los asientos.</p>}
             {canEdit && selectedSeat !== null && (
               <form onSubmit={(event) => {event.preventDefault();saveAssignment();}} style={{display:"flex",flexWrap:"wrap",gap:"12px",alignItems:"end",margin:"22px 0",padding:"18px",background:"#f5f8fb",borderRadius:"12px"}}>
                 <div style={{flex:"1 1 240px"}}><label htmlFor="student-seat-name" style={{display:"block",marginBottom:"8px",fontWeight:700}}>Estudiante para el asiento {selectedSeat}</label>
-                  <input id="student-seat-name" value={studentName} onChange={(event)=>setStudentName(event.target.value)} placeholder="Nombre completo del estudiante" autoFocus style={{width:"100%",padding:"12px",border:"1px solid #cbd5e1",borderRadius:"8px",boxSizing:"border-box"}} />
+                  <select id="student-seat-name" value={studentName} onChange={(event)=>setStudentName(event.target.value)} autoFocus style={{width:"100%",padding:"12px",border:"1px solid #cbd5e1",borderRadius:"8px",boxSizing:"border-box"}}>
+                    <option value="">Selecciona un estudiante</option>
+                    {students.filter((student)=>!Object.entries(courseAssignments).some(([number, assigned])=>Number(number)!==selectedSeat && assigned===student)).map((student)=><option key={student} value={student}>{student}</option>)}
+                  </select>
                 </div>
                 <button type="submit" className="view-button">Guardar puesto</button>
                 {courseAssignments[selectedSeat] && <button type="button" className="view-button" onClick={()=>{const seat=selectedSeat;const updated={...assignments,[cursoSeleccionado]:{...courseAssignments}};delete updated[cursoSeleccionado][seat];setAssignments(updated);storageService.set(ASSIGNMENTS_KEY,updated);setSelectedSeat(null);setStudentName("");setNotice(`Se liberó el asiento ${seat}.`);}}>Liberar asiento</button>}
