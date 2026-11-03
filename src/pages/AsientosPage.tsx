@@ -59,39 +59,57 @@ function AsientosPage() {
       <div className="dashboard-body">
         <NavigationBar />
         <main className="dashboard-content">
-          {user.role !== "ADMIN" && <div style={{maxWidth:1250,margin:"0 auto 18px",display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}><label htmlFor="course-seat-filter" style={{fontWeight:700,color:"#142d55"}}>Seleccionar curso:</label><select id="course-seat-filter" value={cursoSeleccionado} onChange={(event)=>navigate(`/asientos?curso=${encodeURIComponent(event.target.value)}`)} style={{minWidth:220,padding:11,border:"1px solid #cbd5e1",borderRadius:8}}><option value="">Elige un curso</option>{schoolRepository.getCourses().map((course)=><option key={course.id} value={course.name}>{course.name}</option>)}</select></div>}\n          <section className="dashboard-hero">
-            <div className="hero-text"><p className="eyebrow">GESTIÓN DE ASIENTOS</p><h1>Asientos <span>{cursoSeleccionado || "Selecciona un curso"}</span></h1>
-              <p className="dashboard-description">{canEdit ? "Selecciona un asiento y asigna un estudiante registrado en la lista de tu curso." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
+          {user.role !== "ADMIN" && (
+            <div style={{maxWidth:1250,margin:"0 auto 18px",display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+              <label htmlFor="course-seat-filter" style={{fontWeight:700,color:"#142d55"}}>Seleccionar curso:</label>
+              <select id="course-seat-filter" value={cursoSeleccionado} onChange={(event)=>navigate(event.target.value ? `/asientos?curso=${encodeURIComponent(event.target.value)}` : "/asientos")} style={{minWidth:220,padding:11,border:"1px solid #cbd5e1",borderRadius:8}}>
+                <option value="">Elige un curso</option>
+                {schoolRepository.getCourses().map((course)=><option key={course.id} value={course.name}>{course.name}</option>)}
+              </select>
+            </div>
+          )}
+          <section className="dashboard-hero">
+            <div className="hero-text">
+              <p className="eyebrow">GESTIÓN DE ASIENTOS</p>
+              <h1>Asientos <span>{cursoSeleccionado || "Selecciona un curso"}</span></h1>
+              <p className="dashboard-description">{canEdit ? "Selecciona un asiento y asigna un estudiante registrado en la lista del curso." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
             </div>
           </section>
-          {cursoSeleccionado ? <section className="info-panel">
-            <div className="panel-heading"><div><p className="eyebrow">DISTRIBUCIÓN DEL AULA</p><h2>{cursoSeleccionado}</h2><p>{Object.values(courseAssignments).filter(Boolean).length} de {seats.length} asientos ocupados</p></div></div>
-            {notice && <p role="status" style={{padding:"12px",background:"#e8f7ee",color:"#17663a",borderRadius:"8px"}}>{notice}</p>}
-            {canEdit && students.length === 0 && <p style={{padding:"14px",background:"#fff8e6",borderRadius:"8px",color:"#765500"}}>Primero registra estudiantes en la sección Estudiantes de {cursoSeleccionado}. Luego podrás asignarlos a los asientos.</p>}
-            {canEdit && selectedSeat !== null && (
-              <form onSubmit={(event) => {event.preventDefault();saveAssignment();}} style={{display:"flex",flexWrap:"wrap",gap:"12px",alignItems:"end",margin:"22px 0",padding:"18px",background:"#f5f8fb",borderRadius:"12px"}}>
-                <div style={{flex:"1 1 240px"}}><label htmlFor="student-seat-name" style={{display:"block",marginBottom:"8px",fontWeight:700}}>Estudiante para el asiento {selectedSeat}</label>
-                  <select id="student-seat-name" value={studentName} onChange={(event)=>setStudentName(event.target.value)} autoFocus style={{width:"100%",padding:"12px",border:"1px solid #cbd5e1",borderRadius:"8px",boxSizing:"border-box"}}>
-                    <option value="">Selecciona un estudiante</option>
-                    {students.filter((student)=>!Object.entries(courseAssignments).some(([number, assigned])=>Number(number)!==selectedSeat && assigned===student)).map((student)=><option key={student} value={student}>{student}</option>)}
-                  </select>
-                </div>
-                <button type="submit" className="view-button">Guardar puesto</button>
-                {courseAssignments[selectedSeat] && <button type="button" className="view-button" onClick={()=>{const seat=selectedSeat;const updated={...assignments,[cursoSeleccionado]:{...courseAssignments}};delete updated[cursoSeleccionado][seat];setAssignments(updated);storageService.set(ASSIGNMENTS_KEY,updated);setSelectedSeat(null);setStudentName("");setNotice(`Se liberó el asiento ${seat}.`);}}>Liberar asiento</button>}
-                <button type="button" className="view-button" onClick={()=>{setSelectedSeat(null);setStudentName("");}}>Cancelar</button>
-              </form>
-            )}
-            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(135px,1fr))",gap:"14px",marginTop:"24px"}}>
-              {seats.map((seat)=>{
-                const occupant=courseAssignments[seat];
-                const isSelected=selectedSeat===seat;
-                return <button key={seat} type="button" onClick={()=>{setNotice("");if(canEdit){setSelectedSeat(seat);setStudentName(occupant||"");}}} aria-label={`Asiento ${seat}${occupant?`, ${occupant}`: ", libre"}`} style={{minHeight:"112px",padding:"14px 10px",borderRadius:"10px",border:isSelected?"2px solid #d4aa00":occupant?"1px solid #79b99a":"1px solid #d7e0e8",background:isSelected?"#fff8dc":occupant?"#e9f7ef":"#ffffff",color:"#24364b",cursor:canEdit?"pointer":"default",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"7px"}}>
-                  <span style={{fontSize:"23px"}}>🪑</span><strong>Asiento {seat}</strong><span style={{fontSize:"12px",textAlign:"center",overflowWrap:"anywhere"}}>{occupant||"Libre"}</span>
-                </button>;
-              })}
-            </div>
-            {!canEdit && <p style={{marginTop:"18px",color:"#687b8e"}}>Vista de solo lectura. Solo el profesor guía asignado puede modificar este curso.</p>}
-          </section>
+          {!cursoSeleccionado ? (
+            <section className="info-panel"><h2>Selecciona un curso</h2><p>Elige un curso para consultar la distribución de los asientos.</p></section>
+          ) : (
+            <section className="info-panel">
+              <div className="panel-heading">
+                <div><p className="eyebrow">DISTRIBUCIÓN DEL AULA</p><h2>{cursoSeleccionado}</h2><p>{Object.values(courseAssignments).filter(Boolean).length} de {seats.length} asientos ocupados</p></div>
+              </div>
+              {notice && <p role="status" style={{padding:12,background:"#e8f7ee",color:"#17663a",borderRadius:8}}>{notice}</p>}
+              {canEdit && students.length === 0 && <p style={{padding:14,background:"#fff8e6",borderRadius:8,color:"#765500"}}>Primero registra estudiantes en la sección Estudiantes de {cursoSeleccionado}. Luego podrás asignarlos a los asientos.</p>}
+              {canEdit && selectedSeat !== null && (
+                <form onSubmit={(event)=>{event.preventDefault();saveAssignment();}} style={{display:"flex",flexWrap:"wrap",gap:12,alignItems:"end",margin:"22px 0",padding:18,background:"#f5f8fb",borderRadius:12}}>
+                  <div style={{flex:"1 1 240px"}}>
+                    <label htmlFor="student-seat-name" style={{display:"block",marginBottom:8,fontWeight:700}}>Estudiante para el asiento {selectedSeat}</label>
+                    <select id="student-seat-name" value={studentName} onChange={(event)=>setStudentName(event.target.value)} autoFocus style={{width:"100%",padding:12,border:"1px solid #cbd5e1",borderRadius:8,boxSizing:"border-box"}}>
+                      <option value="">Selecciona un estudiante</option>
+                      {students.filter((student)=>!Object.entries(courseAssignments).some(([number,assigned])=>Number(number)!==selectedSeat&&assigned===student)).map((student)=><option key={student} value={student}>{student}</option>)}
+                    </select>
+                  </div>
+                  <button type="submit" className="view-button">Guardar puesto</button>
+                  {courseAssignments[selectedSeat] && <button type="button" className="view-button" onClick={()=>{const updated={...assignments,[cursoSeleccionado]:{...courseAssignments}};delete updated[cursoSeleccionado][selectedSeat];setAssignments(updated);storageService.set(ASSIGNMENTS_KEY,updated);setSelectedSeat(null);setStudentName("");setNotice(`Se liberó el asiento ${selectedSeat}.`);}}>Liberar asiento</button>}
+                  <button type="button" className="view-button" onClick={()=>{setSelectedSeat(null);setStudentName("");}}>Cancelar</button>
+                </form>
+              )}
+              <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(135px,1fr))",gap:14,marginTop:24}}>
+                {seats.map((seat)=>{
+                  const occupant=courseAssignments[seat];
+                  const isSelected=selectedSeat===seat;
+                  return <button key={seat} type="button" onClick={()=>{setNotice("");if(canEdit){setSelectedSeat(seat);setStudentName(occupant||"");}}} aria-label={`Asiento ${seat}${occupant?`, ${occupant}`: ", libre"}`} style={{minHeight:112,padding:"14px 10px",borderRadius:10,border:isSelected?"2px solid #d4aa00":occupant?"1px solid #79b99a":"1px solid #d7e0e8",background:isSelected?"#fff8dc":occupant?"#e9f7ef":"#fff",color:"#24364b",cursor:canEdit?"pointer":"default",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:7}}>
+                    <span style={{fontSize:23}}>🪑</span><strong>Asiento {seat}</strong><span style={{fontSize:12,textAlign:"center",overflowWrap:"anywhere"}}>{occupant||"Libre"}</span>
+                  </button>;
+                })}
+              </div>
+              {!canEdit && <p style={{marginTop:18,color:"#687b8e"}}>Vista de solo lectura. Solo el profesor guía asignado puede modificar este curso.</p>}
+            </section>
+          )}
         </main>
       </div>
     </div>
