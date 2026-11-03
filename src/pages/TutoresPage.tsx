@@ -59,7 +59,7 @@ function TutoresPage() {
     refresh();
     const teacher = teachers.find((item) => item.id === teacherId);
     if (teacher) {
-      const username = createTeacherUsername(teacher.name);
+      const username = schoolRepository.getAdminAccounts().find((account) => account.curso === course.name)?.carnet ?? createTeacherUsername(teacher.name);
       setCreatedAccount({ name: teacher.name, username, role: "ADMIN" });
       setNotice("Profesor guía designado. Su cuenta de administrador quedó generada.");
     } else {
