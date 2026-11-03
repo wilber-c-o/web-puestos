@@ -15,13 +15,18 @@ const TEACHERS_KEY = "don_bosco_teachers_v1";
 const COURSES_KEY = "don_bosco_courses_v1";
 
 const initialTeachers = [
-  "Alvaro Perez", "Mildred Cardozo", "Pablo Avila", "Jose Jancko",
-  "Fabiola Bueno", "Ibert Veizaga", "Ignacio Escobar", "Gisela Espindola",
-  "Erick Palacios", "Norian Campos", "Ariel Cervantes", "Laura Flores",
-  "Jhissel Colque", "Ronal Gutierrez", "Roxana Nuñez", "Jose Pastrana",
-  "Jorge Limber Ledezma", "Gonzalo Rengifo Sandoval", "Manuel Sanchez Zambrana",
-  "Arnaldo Vallejos Perez", "Belen Ariana Aguirre Villalba",
-  "Fabiola Sara Duran Arismendi", "Maria Isabel Negrete Espada",
+  "Pablo Avila Flores", "Ariel Cervantes Nava", "Ignacio Escobar Taida",
+  "Ronal Denis Gutierrez Castagne", "Jorge Limber Ledezma", "Jose Luis Jancko Flores",
+  "Erick Weimar Palacios Villalta", "Gonzalo Rengifo Sandoval", "Manuel Sanchez Zambrana",
+  "Arnaldo Vallejos Perez", "Ibert Freddy Veizaga Moscoso", "Belen Ariana Aguirre Villalba",
+  "Fabiola Ines Bueno Claure", "Norian Judith Campos Zambrana", "Mildred Rosario Cardozo Rojas",
+  "Nayla Jhissel Colque Zambrana", "Fabiola Sara Duran Arismendi", "Gicela Espindola Molina",
+  "Laura Flores Vilar", "Maria Isabel Negrete Espada", "Marianela Saravia Ortega",
+  "Patricia Serrano Zambrana", "Maria Jose Velasco Oroza", "Fernanda Catata Valenzuela",
+  "Soledad Vedia Duran", "Pastrana Jose Alberto", "Nunez Roxana", "Alvaro Perez",
+  "Jose Jancko", "Fabiola Bueno", "Ibert Veizaga", "Gisela Espindola", "Erick Palacios",
+  "Norian Campos", "Ariel Cervantes", "Laura Flores", "Jhissel Colque",
+  "Ronal Gutierrez", "Roxana Nuñez", "Jose Pastrana",
 ];
 
 const initialCourseGuides = [
