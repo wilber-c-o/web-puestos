@@ -6,7 +6,7 @@ const navigationItems: { icon: string; label: string; path: string; adminOnly?: 
   { icon: "♙", label: "Estudiantes", path: "/estudiantes", adminOnly: true },
   { icon: "▣", label: "Cursos", path: "/cursos" },
   { icon: "♧", label: "Asientos", path: "/asientos" },
-  { icon: "♙", label: "Tutores", path: "/tutores", adminOnly: true },
+  { icon: "♙", label: "Profesores y cursos", path: "/tutores", adminOnly: true },
   { icon: "▤", label: "Historial", path: "/historial", adminOnly: true },
 ];
 
@@ -15,7 +15,7 @@ function NavigationBar() {
   const location = useLocation();
   const user = authRepository.getCurrentUser();
   const visibleItems = navigationItems.filter((item) => {
-    if (user?.role === "SUPER_ADMIN") return true;
+    if (user?.role === "SUPER_ADMIN") return ["Inicio", "Cursos", "Asientos", "Profesores y cursos"].includes(item.label);
     if (user?.role === "ADMIN") {
       return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(item.label);
     }
