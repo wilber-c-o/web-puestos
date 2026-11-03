@@ -26,9 +26,11 @@ export default function LoginPage() {
 
     if (!user) {
       setError(
-        selectedRole === "ADMIN"
-          ? "El usuario o la contraseña del administrador son incorrectos."
-          : "El usuario o la contraseña del usuario son incorrectos."
+        selectedRole === "SUPER_ADMIN"
+          ? "El usuario o la contraseña del director académico son incorrectos."
+          : selectedRole === "ADMIN"
+            ? "El usuario o la contraseña del administrador son incorrectos."
+            : "El usuario o la contraseña del usuario son incorrectos."
       );
       setIsLoading(false);
       return;
@@ -111,6 +113,22 @@ export default function LoginPage() {
                 </span>
                 <span className="role-option-check" aria-hidden="true">
                   {selectedRole === "ADMIN" ? "✓" : ""}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                className={"role-option " + (selectedRole === "SUPER_ADMIN" ? "role-option-active role-option-admin" : "")}
+                aria-pressed={selectedRole === "SUPER_ADMIN"}
+                onClick={() => handleRoleChange("SUPER_ADMIN")}
+              >
+                <span className="role-option-icon" aria-hidden="true">★</span>
+                <span className="role-option-copy">
+                  <strong>Super administrador</strong>
+                  <small>Director académico · Control total</small>
+                </span>
+                <span className="role-option-check" aria-hidden="true">
+                  {selectedRole === "SUPER_ADMIN" ? "✓" : ""}
                 </span>
               </button>
             </div>
