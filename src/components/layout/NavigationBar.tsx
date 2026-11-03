@@ -16,7 +16,7 @@ function NavigationBar() {
   const user = authRepository.getCurrentUser();
   const visibleItems = navigationItems.filter((item) => {
     if (user?.role === "ADMIN") {
-      return ["Inicio", "Cursos", "Asientos"].includes(item.label);
+      return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(item.label);
     }
     return !item.adminOnly;
   });
