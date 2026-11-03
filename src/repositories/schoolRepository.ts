@@ -121,10 +121,18 @@ export const schoolRepository = {
   },
   getAdminAccounts(): { id: string; name: string; carnet: string; password: string; role: "ADMIN"; curso: string }[] {
     const teachers = readTeachers();
+    const used = new Set<string>();
     return readCourses().flatMap((course) => {
       const teacher = teachers.find((item) => item.id === course.guideId);
       if (!teacher) return [];
-      const username = createTeacherUsername(teacher.name);
+      const base = createTeacherUsername(teacher.name);
+      let username = base;
+      let suffix = 2;
+      while (used.has(username.toLocaleLowerCase())) {
+        username = base.replace("_DB2026", suffix + "_DB2026");
+        suffix += 1;
+      }
+      used.add(username.toLocaleLowerCase());
       return [{ id: "guide-" + teacher.id, name: teacher.name, carnet: username, password: username, role: "ADMIN" as const, curso: course.name }];
     });
   },
