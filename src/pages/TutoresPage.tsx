@@ -27,7 +27,7 @@ function TutoresPage() {
     const teacher = schoolRepository.addTeacher(newTeacher);
     if (!teacher) { setNotice("Escribe un nombre válido. No se permiten nombres repetidos."); return; }
     setNewTeacher("");
-    setCreatedAccount({ name: teacher.name, username: createTeacherUsername(teacher.name, "USUARIO"), role: "USUARIO" });
+    setCreatedAccount({ name: teacher.name, username: schoolRepository.getTeacherUserAccounts().find((account) => account.id === "staff-" + teacher.id)?.carnet ?? createTeacherUsername(teacher.name, "USUARIO"), role: "USUARIO" });
     setNotice("Profesor agregado correctamente. Se generó su cuenta de consulta.");
     refresh();
   };
