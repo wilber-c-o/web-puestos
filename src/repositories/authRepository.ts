@@ -50,6 +50,15 @@ export const authRepository = {
         return null;
       }
     }
+    if (session?.role === "USUARIO") {
+      const stillInStaff = schoolRepository.getTeacherUserAccounts().some(
+        (account) => account.carnet === session.carnet
+      );
+      if (!stillInStaff) {
+        storageService.remove(SESSION_KEY);
+        return null;
+      }
+    }
     return session;
   },
   isAuthenticated(): boolean {
