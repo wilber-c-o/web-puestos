@@ -129,8 +129,16 @@ export const schoolRepository = {
     });
   },
   getTeacherUserAccounts(): { id: string; name: string; carnet: string; password: string; role: "USUARIO" }[] {
+    const used = new Set<string>();
     return readTeachers().map((teacher) => {
-      const username = createTeacherUsername(teacher.name, "USUARIO");
+      const base = createTeacherUsername(teacher.name, "USUARIO");
+      let username = base;
+      let suffix = 2;
+      while (used.has(username.toLocaleLowerCase())) {
+        username = base.replace("_USUARIO", suffix + "_USUARIO");
+        suffix += 1;
+      }
+      used.add(username.toLocaleLowerCase());
       return { id: "staff-" + teacher.id, name: teacher.name, carnet: username, password: username, role: "USUARIO" as const };
     });
   },
