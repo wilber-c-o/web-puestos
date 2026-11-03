@@ -15,6 +15,7 @@ function NavigationBar() {
   const location = useLocation();
   const user = authRepository.getCurrentUser();
   const visibleItems = navigationItems.filter((item) => {
+    if (user?.role === "SUPER_ADMIN") return true;
     if (user?.role === "ADMIN") {
       return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(item.label);
     }
