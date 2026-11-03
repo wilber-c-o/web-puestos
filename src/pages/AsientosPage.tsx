@@ -100,18 +100,16 @@ function AsientosPage() {
               )}
               <div style={{marginTop:24,padding:18,background:"#edf2f7",border:"1px solid #d7e0e8",borderRadius:16,overflowX:"auto"}}>
                 <div style={{minWidth:620,maxWidth:1000,margin:"0 auto"}}>
-                  <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:18,marginBottom:14,position:"relative"}}>
-                    <div style={{background:"#173b5e",color:"#fff",width:"min(420px,65%)",padding:"15px 12px",borderRadius:8,textAlign:"center",boxShadow:"0 4px 0 #0d2943"}}>
+                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:18,marginBottom:24,minWidth:590}}>
+                    <div style={{width:76,minHeight:92,flexShrink:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"#d9b98c",border:"2px solid #a77b4c",borderRadius:"7px 7px 0 0",color:"#573a20"}}>
+                      <span style={{fontSize:25}}>🚪</span><strong style={{fontSize:11}}>PUERTA</strong>
+                    </div>
+                    <div style={{background:"#173b5e",color:"#fff",width:"min(420px,65%)",minWidth:230,padding:"15px 12px",borderRadius:8,textAlign:"center",boxShadow:"0 4px 0 #0d2943"}}>
                       <div style={{fontSize:11,letterSpacing:2,opacity:.8}}>FRENTE DEL AULA</div>
                       <strong style={{fontSize:20,letterSpacing:1}}>PIZARRA</strong>
                     </div>
-                    <div style={{position:"absolute",right:0,top:0,bottom:0,width:76,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"#d9b98c",border:"2px solid #a77b4c",borderRadius:"7px 7px 0 0",color:"#573a20"}}>
-                      <span style={{fontSize:23}}>🚪</span><strong style={{fontSize:11}}>PUERTA</strong>
-                    </div>
-                  </div>
-                  <div style={{display:"flex",justifyContent:"center",margin:"0 auto 22px"}}>
-                    <div style={{minWidth:180,padding:"9px 22px",background:"#c99b62",border:"2px solid #9b6d3c",borderRadius:7,textAlign:"center",color:"#382717",boxShadow:"0 5px 0 #9b6d3c"}}>
-                      <span style={{fontSize:18}}>🪑</span><strong style={{display:"block",fontSize:13}}>MESA DEL PROFESOR</strong>
+                    <div style={{minWidth:120,padding:"12px 8px",flexShrink:0,background:"#c99b62",border:"2px solid #9b6d3c",borderRadius:7,textAlign:"center",color:"#382717",boxShadow:"0 5px 0 #9b6d3c"}}>
+                      <span style={{fontSize:18}}>🪑</span><strong style={{display:"block",fontSize:11}}>MESA DEL PROFESOR</strong>
                     </div>
                   </div>
                   <div style={{display:"grid",gridTemplateColumns:"repeat(6,minmax(82px,1fr))",gap:12}}>
