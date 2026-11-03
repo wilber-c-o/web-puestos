@@ -44,7 +44,8 @@ function EstudiantesPage() {
       setNotice("Ya existe un estudiante con ese nombre.");
       return;
     }
-    studentRepository.renameInCourse(course, oldName, name);\n    persist(students.map((student) => student === oldName ? name : student));
+    studentRepository.renameInCourse(course, oldName, name);
+    persist(students.map((student) => student === oldName ? name : student));
     setEditingStudent(null);
     setEditName("");
     setNotice("Nombre actualizado correctamente.");
