@@ -15,6 +15,7 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
   const [password, setPassword] = useState("");
 
   const isAdmin = role === "ADMIN";
+  const isSuperAdmin = role === "SUPER_ADMIN";
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -34,12 +35,10 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <div className="login-form__heading">
-        <p className="eyebrow">{isAdmin ? "ACCESO DE PROFESOR GUÍA" : "ACCESO DOCENTE"}</p>
+        <p className="eyebrow">{isSuperAdmin ? "ACCESO DEL DIRECTOR ACADÉMICO" : isAdmin ? "ACCESO DE PROFESOR GUÍA" : "ACCESO DOCENTE"}</p>
         <h2>Iniciar sesión</h2>
         <p>
-          {isAdmin
-            ? "Ingresa para organizar los puestos de tu curso."
-            : "Ingresa para consultar los puestos de los estudiantes."}
+          {isSuperAdmin ? "Ingresa para administrar el sistema y el plantel docente." : isAdmin ? "Ingresa para organizar los puestos de tu curso." : "Ingresa para consultar los puestos de los estudiantes."}
         </p>
       </div>
 
@@ -91,7 +90,7 @@ function LoginForm({ role, error, isLoading = false, onSubmit }: LoginFormProps)
         aria-busy={isLoading}
       >
         <span className="login-form__submit-text">
-          {isLoading ? "Iniciando sesión..." : isAdmin ? "Entrar como administrador" : "Entrar como usuario"}
+          {isLoading ? "Iniciando sesión..." : isSuperAdmin ? "Entrar como super administrador" : isAdmin ? "Entrar como administrador" : "Entrar como usuario"}
         </span>
         <span aria-hidden="true">→</span>
       </button>
