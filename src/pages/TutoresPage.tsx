@@ -132,8 +132,9 @@ function TutoresPage() {
               <div style={{display:"grid", gap:9}}>
                 {teachers.map((teacher) => {
                   const guideCourse = courses.find((course)=>course.guideId===teacher.id);
+                  const staffAccount = schoolRepository.getTeacherUserAccounts().find((account)=>account.id==="staff-"+teacher.id);
                   return <div key={teacher.id} style={{display:"flex", alignItems:"center", justifyContent:"space-between", gap:12, padding:"10px 0", borderBottom:"1px solid #edf1f5"}}>
-                    <div><strong>{teacher.name}</strong><div style={{fontSize:12, color:"#71869a"}}>{guideCourse ? "Profesor guía de "+guideCourse.name : "Docente · sin curso asignado"}</div></div>
+                    <div><strong>{teacher.name}</strong><div style={{fontSize:12, color:"#71869a"}}>{guideCourse ? "Profesor guía de "+guideCourse.name : "Docente · sin curso asignado"}</div><div style={{fontSize:11,color:"#71869a",marginTop:4}}>Usuario de consulta: <strong>{staffAccount?.carnet}</strong> · Contraseña: igual al usuario</div></div>
                     <button type="button" onClick={()=>{if(window.confirm("¿Eliminar a "+teacher.name+" del plantel?")){schoolRepository.deleteTeacher(teacher.id);refresh();setCreatedAccount(null);setNotice("Profesor eliminado. Su curso quedó sin profesor guía.");}}} style={{...buttonStyle, background:"#a33d3d"}}>Eliminar</button>
                   </div>;
                 })}
