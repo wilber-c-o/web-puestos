@@ -128,7 +128,7 @@ with check (
   public.can_manage_course(course_id)
   and exists (
     select 1 from public.students s
-    where s.id = student_id and s.course_id = course_id
+    where s.id = student_id and s.course_id = seat_assignments.course_id
   )
 );
 
