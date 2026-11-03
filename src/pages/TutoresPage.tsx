@@ -27,7 +27,8 @@ function TutoresPage() {
     const teacher = schoolRepository.addTeacher(newTeacher);
     if (!teacher) { setNotice("Escribe un nombre válido. No se permiten nombres repetidos."); return; }
     setNewTeacher("");
-    setNotice("Profesor agregado correctamente.");
+    setCreatedAccount({ name: teacher.name, username: createTeacherUsername(teacher.name, "USUARIO"), role: "USUARIO" });
+    setNotice("Profesor agregado correctamente. Se generó su cuenta de consulta.");
     refresh();
   };
   const addCourse = () => {
