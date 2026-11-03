@@ -33,7 +33,7 @@ function HomePage() {
 
   const visibleButtons = panelButtons.filter((button) => {
     if (user.role === "ADMIN") {
-      return ["Inicio", "Cursos", "Asientos"].includes(button.title);
+      return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(button.title);
     }
     return !button.adminOnly;
   });
