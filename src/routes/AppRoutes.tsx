@@ -38,7 +38,7 @@ function AppRoutes() {
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/asientos" element={<ProtectedRoute><AsientosPage /></ProtectedRoute>} />
         <Route path="/cursos" element={<ProtectedRoute><CursosPage /></ProtectedRoute>} />
-        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN", "SUPER_ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
+        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
         <Route path="/tutores" element={<ProtectedRoute roles={["SUPER_ADMIN"]}><TutoresPage /></ProtectedRoute>} />
         <Route path="/historial" element={<ProtectedRoute roles={["SUPER_ADMIN"]}><HistorialPage /></ProtectedRoute>} />
         {/* Compatibilidad con el enlace anterior */}
