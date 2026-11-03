@@ -59,7 +59,7 @@ function AsientosPage() {
       <div className="dashboard-body">
         <NavigationBar />
         <main className="dashboard-content">
-          <section className="dashboard-hero">
+          {user.role !== "ADMIN" && <div style={{maxWidth:1250,margin:"0 auto 18px",display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}><label htmlFor="course-seat-filter" style={{fontWeight:700,color:"#142d55"}}>Seleccionar curso:</label><select id="course-seat-filter" value={cursoSeleccionado} onChange={(event)=>navigate(`/asientos?curso=${encodeURIComponent(event.target.value)}`)} style={{minWidth:220,padding:11,border:"1px solid #cbd5e1",borderRadius:8}}><option value="">Elige un curso</option>{schoolRepository.getCourses().map((course)=><option key={course.id} value={course.name}>{course.name}</option>)}</select></div>}\n          <section className="dashboard-hero">
             <div className="hero-text"><p className="eyebrow">GESTIÓN DE ASIENTOS</p><h1>Asientos <span>{cursoSeleccionado || "Selecciona un curso"}</span></h1>
               <p className="dashboard-description">{canEdit ? "Selecciona un asiento y asigna un estudiante registrado en la lista de tu curso." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
             </div>
