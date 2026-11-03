@@ -85,7 +85,7 @@ function EstudiantesPage() {
             <section className="students-list-panel">
               <div className="students-list-header"><div><p className="eyebrow">REGISTRO · {course}</p><h2>Estudiantes registrados</h2></div><span className="students-count">{students.length}</span></div>
               <div className="students-list">
-                {filteredStudents.length ? filteredStudents.map((student, index) => (
+                {filteredStudents.length ? filteredStudents.map((student) => (
                   <div className="student-row" key={student}>
                     <div className="student-number">{students.indexOf(student) + 1}</div>
                     <div className="student-avatar">{student.charAt(0).toUpperCase()}</div>
