@@ -26,7 +26,7 @@ function EstudiantesPage() {
     navigate("/login", { replace: true });
   };
   const addStudent = () => {
-    const name = newStudent.trim().replace(/\\s+/g, " ");
+    const name = newStudent.trim().replace(/\s+/g, " ");
     if (!name) return;
     if (students.some((student) => student.toLocaleLowerCase() === name.toLocaleLowerCase())) {
       setNotice("Ese estudiante ya está registrado en este curso.");
@@ -38,7 +38,7 @@ function EstudiantesPage() {
     setNotice("Estudiante registrado correctamente.");
   };
   const saveEdit = (oldName: string) => {
-    const name = editName.trim().replace(/\\s+/g, " ");
+    const name = editName.trim().replace(/\s+/g, " ");
     if (!name) return;
     if (students.some((student) => student !== oldName && student.toLocaleLowerCase() === name.toLocaleLowerCase())) {
       setNotice("Ya existe un estudiante con ese nombre.");
