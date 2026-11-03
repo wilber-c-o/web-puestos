@@ -38,9 +38,9 @@ function AppRoutes() {
         <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
         <Route path="/asientos" element={<ProtectedRoute><AsientosPage /></ProtectedRoute>} />
         <Route path="/cursos" element={<ProtectedRoute><CursosPage /></ProtectedRoute>} />
-        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
-        <Route path="/tutores" element={<ProtectedRoute roles={["ADMIN"]}><TutoresPage /></ProtectedRoute>} />
-        <Route path="/historial" element={<ProtectedRoute roles={["ADMIN"]}><HistorialPage /></ProtectedRoute>} />
+        <Route path="/estudiantes" element={<ProtectedRoute roles={["ADMIN", "SUPER_ADMIN"]}><EstudiantesPage /></ProtectedRoute>} />
+        <Route path="/tutores" element={<ProtectedRoute roles={["SUPER_ADMIN"]}><TutoresPage /></ProtectedRoute>} />
+        <Route path="/historial" element={<ProtectedRoute roles={["SUPER_ADMIN"]}><HistorialPage /></ProtectedRoute>} />
         {/* Compatibilidad con el enlace anterior */}
         <Route path="/clases" element={<Navigate to="/cursos" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
