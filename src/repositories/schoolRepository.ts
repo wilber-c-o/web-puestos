@@ -24,7 +24,7 @@ const initialTeachers = [
   "Laura Flores Vilar", "Maria Isabel Negrete Espada", "Marianela Saravia Ortega",
   "Patricia Serrano Zambrana", "Maria Jose Velasco Oroza", "Fernanda Catata Valenzuela",
   "Soledad Vedia Duran", "Pastrana Jose Alberto", "Nunez Roxana", "Alvaro Perez",
-  "Jose Jancko", "Fabiola Bueno", "Ibert Veizaga", "Gisela Espindola", "Erick Palacios",
+  "Mildred Cardozo", "Pablo Avila", "Jose Jancko", "Fabiola Bueno", "Ibert Veizaga", "Ignacio Escobar", "Gisela Espindola", "Erick Palacios",
   "Norian Campos", "Ariel Cervantes", "Laura Flores", "Jhissel Colque",
   "Ronal Gutierrez", "Roxana Nuñez", "Jose Pastrana",
 ];
