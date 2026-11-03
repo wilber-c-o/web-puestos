@@ -5,6 +5,7 @@ import NavigationBar from "../components/layout/NavigationBar";
 import { authRepository } from "../repositories/authRepository";
 import { storageService } from "../services/storageService";
 import { studentRepository } from "../repositories/studentRepository";
+import { schoolRepository } from "../repositories/schoolRepository";
 
 type SeatAssignments = Record<string, Record<number, string>>;
 const ASSIGNMENTS_KEY = "don_bosco_seat_assignments";
@@ -14,15 +15,15 @@ function AsientosPage() {
   const [searchParams] = useSearchParams();
   const user = authRepository.getCurrentUser();
   const requestedCourse = searchParams.get("curso") || "";
-  const cursoSeleccionado = user?.role === "ADMIN" && user.curso && user.curso !== "TODOS" ? user.curso : requestedCourse || "Curso sin seleccionar";
+  const cursoSeleccionado = user?.role === "ADMIN" ? (user.curso ?? "") : requestedCourse;
   const [assignments, setAssignments] = useState<SeatAssignments>(() => storageService.get<SeatAssignments>(ASSIGNMENTS_KEY) || {});
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [studentName, setStudentName] = useState("");
   const [notice, setNotice] = useState("");
   const seats = useMemo(() => Array.from({ length: 42 }, (_, index) => index + 1), []);
-  const students = useMemo(() => studentRepository.getByCourse(cursoSeleccionado), [cursoSeleccionado]);
+  const students = useMemo(() => cursoSeleccionado ? studentRepository.getByCourse(cursoSeleccionado) : [], [cursoSeleccionado]);
   const courseAssignments = assignments[cursoSeleccionado] || {};
-  const canEdit = user?.role === "SUPER_ADMIN" || (user?.role === "ADMIN" && (!user.curso || user.curso === "TODOS" || user.curso === cursoSeleccionado));
+  const canEdit = Boolean(cursoSeleccionado) && (user?.role === "SUPER_ADMIN" || (user?.role === "ADMIN" && Boolean(user.curso) && user.curso === cursoSeleccionado));
 
   const handleLogout = () => {
     authRepository.logout();
@@ -59,11 +60,11 @@ function AsientosPage() {
         <NavigationBar />
         <main className="dashboard-content">
           <section className="dashboard-hero">
-            <div className="hero-text"><p className="eyebrow">GESTIÓN DE ASIENTOS</p><h1>Asientos <span>{cursoSeleccionado}</span></h1>
+            <div className="hero-text"><p className="eyebrow">GESTIÓN DE ASIENTOS</p><h1>Asientos <span>{cursoSeleccionado || "Selecciona un curso"}</span></h1>
               <p className="dashboard-description">{canEdit ? "Selecciona un asiento y asigna un estudiante registrado en la lista de tu curso." : "Modo consulta: revisa el puesto asignado a cada estudiante."}</p>
             </div>
           </section>
-          <section className="info-panel">
+          {cursoSeleccionado ? <section className="info-panel">
             <div className="panel-heading"><div><p className="eyebrow">DISTRIBUCIÓN DEL AULA</p><h2>{cursoSeleccionado}</h2><p>{Object.values(courseAssignments).filter(Boolean).length} de {seats.length} asientos ocupados</p></div></div>
             {notice && <p role="status" style={{padding:"12px",background:"#e8f7ee",color:"#17663a",borderRadius:"8px"}}>{notice}</p>}
             {canEdit && students.length === 0 && <p style={{padding:"14px",background:"#fff8e6",borderRadius:"8px",color:"#765500"}}>Primero registra estudiantes en la sección Estudiantes de {cursoSeleccionado}. Luego podrás asignarlos a los asientos.</p>}
