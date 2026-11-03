@@ -22,7 +22,7 @@ function AsientosPage() {
   const seats = useMemo(() => Array.from({ length: 42 }, (_, index) => index + 1), []);
   const students = useMemo(() => studentRepository.getByCourse(cursoSeleccionado), [cursoSeleccionado]);
   const courseAssignments = assignments[cursoSeleccionado] || {};
-  const canEdit = user?.role === "ADMIN" && (!user.curso || user.curso === "TODOS" || user.curso === cursoSeleccionado);
+  const canEdit = user?.role === "SUPER_ADMIN" || (user?.role === "ADMIN" && (!user.curso || user.curso === "TODOS" || user.curso === cursoSeleccionado));
 
   const handleLogout = () => {
     authRepository.logout();
