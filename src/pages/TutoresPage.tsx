@@ -38,6 +38,11 @@ function TutoresPage() {
     refresh();
   };
   const assignGuide = (course: CourseRecord, teacherId: string) => {
+    if (teacherId && courses.some((item) => item.id !== course.id && item.guideId === teacherId)) {
+      setNotice("Ese profesor ya está designado como guía de otro curso.");
+      refresh();
+      return;
+    }
     schoolRepository.assignGuide(course.id, teacherId || null);
     refresh();
     const teacher = teachers.find((item) => item.id === teacherId);
