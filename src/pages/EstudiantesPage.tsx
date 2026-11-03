@@ -44,7 +44,7 @@ function EstudiantesPage() {
       setNotice("Ya existe un estudiante con ese nombre.");
       return;
     }
-    persist(students.map((student) => student === oldName ? name : student));
+    studentRepository.renameInCourse(course, oldName, name);\n    persist(students.map((student) => student === oldName ? name : student));
     setEditingStudent(null);
     setEditName("");
     setNotice("Nombre actualizado correctamente.");
@@ -99,7 +99,7 @@ function EstudiantesPage() {
                       <>
                         <div className="student-info"><strong>{student}</strong><span>Estudiante de {course}</span></div>
                         <button type="button" className="student-delete-button" onClick={() => { setEditingStudent(student); setEditName(student); }}>Editar</button>
-                        <button type="button" className="student-delete-button" onClick={() => { if (window.confirm(`¿Eliminar a ${student} de la lista?`)) { persist(students.filter((item) => item !== student)); setNotice("Estudiante eliminado."); } }}>Eliminar</button>
+                        <button type="button" className="student-delete-button" onClick={() => { if (window.confirm(`¿Eliminar a ${student} de la lista?`)) { studentRepository.removeFromCourse(course, student); persist(students.filter((item) => item !== student)); setNotice("Estudiante eliminado."); } }}>Eliminar</button>
                       </>
                     )}
                   </div>
