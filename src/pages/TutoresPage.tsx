@@ -13,7 +13,7 @@ function TutoresPage() {
   const [newTeacher, setNewTeacher] = useState("");
   const [newCourse, setNewCourse] = useState("");
   const [notice, setNotice] = useState("");
-  const [createdAccount, setCreatedAccount] = useState<{name:string; username:string} | null>(null);
+  const [createdAccount, setCreatedAccount] = useState<{name:string; username:string; role:"ADMIN"|"USUARIO"} | null>(null);
 
   const refresh = () => {
     setTeachers(schoolRepository.getTeachers());
@@ -48,7 +48,7 @@ function TutoresPage() {
     const teacher = teachers.find((item) => item.id === teacherId);
     if (teacher) {
       const username = createTeacherUsername(teacher.name);
-      setCreatedAccount({ name: teacher.name, username });
+      setCreatedAccount({ name: teacher.name, username, role: "ADMIN" });
       setNotice("Profesor guía designado. Su cuenta de administrador quedó generada.");
     } else {
       setCreatedAccount(null);
@@ -75,11 +75,11 @@ function TutoresPage() {
             {notice && <p role="status" style={{padding:13, borderRadius:8, background:"#edf7f0", color:"#17663a"}}>{notice}</p>}
             {createdAccount && (
               <section style={{...panelStyle, borderColor:"#d6b54a", background:"#fffdf4"}}>
-                <h2 style={{margin:"0 0 8px", color:"#173044"}}>Cuenta de administrador generada</h2>
+                <h2 style={{margin:"0 0 8px", color:"#173044"}}>{createdAccount.role === "ADMIN" ? "Cuenta de administrador generada" : "Cuenta de usuario generada"}</h2>
                 <p style={{margin:"0 0 12px"}}>Profesor guía: <strong>{createdAccount.name}</strong></p>
                 <p style={{margin:"5px 0"}}>Usuario: <strong>{createdAccount.username}</strong></p>
                 <p style={{margin:"5px 0"}}>Contraseña inicial: <strong>{createdAccount.username}</strong></p>
-                <small>Comparte estas credenciales con el profesor guía. Puede iniciar sesión seleccionando Administrador.</small>
+                <small>{createdAccount.role === "ADMIN" ? "Comparte estas credenciales con el profesor guía. Debe seleccionar Administrador al iniciar sesión." : "Comparte estas credenciales con el docente. Debe seleccionar Usuario para consultar cursos y asientos."}</small>
               </section>
             )}
             <section style={panelStyle}>
