@@ -27,12 +27,12 @@ function HomePage() {
     { icon: "♙", title: "Estudiantes", description: "Registra y consulta estudiantes.", path: "/estudiantes", className: "main-option-blue", adminOnly: true },
     { icon: "▣", title: "Cursos", description: "Consulta los cursos de secundaria.", path: "/cursos", className: "main-option-green" },
     { icon: "♧", title: "Asientos", description: "Consulta los puestos de cada aula.", path: "/asientos", className: "main-option-purple" },
-    { icon: "♙", title: "Tutores", description: "Gestiona los tutores del colegio.", path: "/tutores", className: "main-option-yellow", adminOnly: true },
+    { icon: "♙", title: "Profesores y cursos", description: "Administra docentes y designa profesores guía.", path: "/tutores", className: "main-option-yellow", adminOnly: true },
     { icon: "▤", title: "Historial", description: "Consulta cambios y actividades.", path: "/historial", className: "main-option-blue", adminOnly: true },
   ];
 
   const visibleButtons = panelButtons.filter((button) => {
-    if (user.role === "SUPER_ADMIN") return true;
+    if (user.role === "SUPER_ADMIN") return ["Inicio", "Cursos", "Asientos", "Profesores y cursos"].includes(button.title);
     if (user.role === "ADMIN") {
       return ["Inicio", "Estudiantes", "Cursos", "Asientos"].includes(button.title);
     }
