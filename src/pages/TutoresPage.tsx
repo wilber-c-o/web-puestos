@@ -118,10 +118,13 @@ function TutoresPage() {
                 {courses.map((course) => (
                   <div key={course.id} style={{display:"grid", gridTemplateColumns:"minmax(100px,.7fr) minmax(180px,1.5fr) auto", gap:12, alignItems:"center", padding:"13px 0", borderBottom:"1px solid #edf1f5"}}>
                     <strong style={{color:"#173b61"}}>{course.name}</strong>
-                    <select style={fieldStyle} value={course.guideId ?? ""} onChange={(e)=>assignGuide(course,e.target.value)}>
-                      <option value="">Por asignar</option>
-                      {teachers.map((teacher)=><option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
-                    </select>
+                    <div>
+                      <select style={fieldStyle} value={course.guideId ?? ""} onChange={(e)=>assignGuide(course,e.target.value)}>
+                        <option value="">Por asignar</option>
+                        {teachers.map((teacher)=><option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
+                      </select>
+                      {course.guideId && <small style={{display:"block",marginTop:6,color:"#71869a"}}>Usuario ADMIN: <strong>{schoolRepository.getAdminAccounts().find((account)=>account.curso===course.name)?.carnet}</strong> · Contraseña: igual al usuario</small>}
+                    </div>
                     <button type="button" onClick={()=>{if(window.confirm("¿Eliminar el curso "+course.name+"? También se eliminarán sus estudiantes y asientos guardados en este navegador.")){schoolRepository.deleteCourse(course.id);refresh();setNotice("Curso eliminado.");}}} style={{...buttonStyle, background:"#a33d3d"}}>Eliminar</button>
                   </div>
                 ))}
